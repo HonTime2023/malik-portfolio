@@ -1,26 +1,60 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-brand-bg: #04160e;
+  --color-brand-bg-soft: #062617;
+  --color-brand-surface: #0a3320;
+  --color-brand-border: #114a2c;
+  --color-brand-accent: #f1c40f;
+  --color-brand-accent-soft: #f7dc6f;
+  --color-brand-accent-hover: #d4ac0d;
+  --color-brand-text: #f7faf8;
+  --color-brand-muted: #a3c1ad;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand-bg: var(--color-brand-bg);
+  --color-brand-bg-soft: var(--color-brand-bg-soft);
+  --color-brand-surface: var(--color-brand-surface);
+  --color-brand-border: var(--color-brand-border);
+  --color-brand-accent: var(--color-brand-accent);
+  --color-brand-accent-soft: var(--color-brand-accent-soft);
+  --color-brand-accent-hover: var(--color-brand-accent-hover);
+  --color-brand-text: var(--color-brand-text);
+  --color-brand-muted: var(--color-brand-muted);
+
+  --font-heading: var(--font-jakarta), ui-sans-serif, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-mono-src), ui-monospace, monospace;
+
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  scrollbar-color: var(--color-brand-accent) var(--color-brand-bg);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-brand-bg);
+  color: var(--color-brand-text);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--color-brand-accent);
+  color: var(--color-brand-bg);
+}
+
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, var(--color-brand-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-brand-border) 1px, transparent 1px);
+}
+
+.text-balance {
+  text-wrap: balance;
 }

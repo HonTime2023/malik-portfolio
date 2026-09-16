@@ -1,0 +1,323 @@
+export const siteConfig = {
+  name: "Malik Pelumi Bello",
+  shortName: "Malik Bello",
+  role: "AI / ML Engineer",
+  company: "Wema Bank Plc",
+  companyDetail: "Data Analytics & AI Team",
+  location: "Lagos, Nigeria",
+  email: "belloayopelumi@gmail.com",
+  tagline:
+    "Turning uncertainty into advantage through data, models, and judgment.",
+  subline:
+    "Too much data and big AI but no clarity? I design, deploy, and scale machine learning and GenAI systems that turn messy, real-world data into decisions people can act on.",
+  philosophy: [
+    { text: "Data is", highlight: "Everywhere." },
+    { text: "Advantage is", highlight: "Rare." },
+    { text: "I Build", highlight: "the Difference." },
+  ],
+  socials: {
+    linkedin: "https://www.linkedin.com/in/malik-bello-data-scientist/",
+    github: "https://github.com/HonTime2023",
+    kaggle: "https://www.kaggle.com/bellomalik/code",
+    medium: "https://medium.com/@belloayopelumi",
+    researchgate: "https://www.researchgate.net/profile/Malik-Bello",
+    orcid: "https://orcid.org/0009-0004-0906-2731",
+    youtube: "https://www.youtube.com/@BelloMalik-Data",
+    linktree: "https://linktr.ee/bellomalik",
+    babskenky: "https://www.babskenky.com/",
+  },
+};
+
+export const metrics = [
+  { label: "Years in Applied Data & AI", value: "5+" },
+  { label: "Production ML / GenAI Systems Shipped", value: "6+" },
+  { label: "Peer-Reviewed & Conference Publications", value: "3" },
+  { label: "Core Domain", value: "Fintech · Public Sector · Research" },
+];
+
+export const capabilities = [
+  {
+    title: "Machine Learning Systems",
+    desc: "Predictive modelling, classification, forecasting and decision-support engines trained on messy, real-world data.",
+    tech: ["Python", "Scikit-learn", "XGBoost", "LightGBM", "Pandas"],
+  },
+  {
+    title: "GenAI & LLM Engineering",
+    desc: "Retrieval-augmented generation, agentic workflows and multimodal reasoning built on production-grade foundation models.",
+    tech: ["Anthropic Claude", "Gemini", "AWS Bedrock", "LangChain", "pgvector"],
+  },
+  {
+    title: "Cloud & MLOps",
+    desc: "Infrastructure-as-code, containerised services and monitored pipelines that take a notebook from idea to production.",
+    tech: ["AWS", "Azure", "Terraform", "Docker", "FastAPI / Flask"],
+  },
+  {
+    title: "Data Engineering & Analytics",
+    desc: "ETL pipelines, dimensional modelling and BI reporting that keep decision-makers working from a single source of truth.",
+    tech: ["SQL", "Power BI", "Tableau", "dbt", "PySpark"],
+  },
+  {
+    title: "Statistics & Research Design",
+    desc: "Quasi-experimental design, hypothesis testing and econometrics applied to education, social science and financial data.",
+    tech: ["SPSS", "Stata", "Econometrics", "Geospatial Analysis"],
+  },
+  {
+    title: "Optimisation & Operations Research",
+    desc: "Combinatorial routing and assignment problems solved with constraint programming and geospatial reasoning at scale.",
+    tech: ["OR-Tools", "GeoPandas", "Mapbox", "Vehicle Routing"],
+  },
+];
+
+export type ExperienceItem = {
+  period: string;
+  role: string;
+  org: string;
+  location: string;
+  points: string[];
+  current?: boolean;
+};
+
+export const experience: ExperienceItem[] = [
+  {
+    period: "Mar 2025 — Present",
+    role: "Data Scientist / AI-ML Engineer",
+    org: "Wema Bank Plc — Data Analytics & AI Team",
+    location: "Marina, Lagos, Nigeria",
+    current: true,
+    points: [
+      "Architecting and productionising machine learning and GenAI solutions inside a Tier-1 Nigerian bank's digital banking ecosystem.",
+      "Operationalising model pipelines and analytics workflows that inform enterprise-wide decisions.",
+    ],
+  },
+  {
+    period: "May 2024 — Jan 2025",
+    role: "Data Analyst",
+    org: "Directorate of ICT, Olabisi Onabanjo University",
+    location: "Ago Iwoye, Ogun, Nigeria",
+    points: [
+      "Ran end-to-end ETL on the university's student database across Excel, Microsoft Azure and a local MySQL server.",
+      "Analysed CBT examination scheduling, attendance and sessional payment data to surface institutional insights.",
+    ],
+  },
+  {
+    period: "Feb 2024 — Dec 2024",
+    role: "Data Science Intern",
+    org: "3MTT Nigeria — The Founding Network",
+    location: "Osogbo, Osun, Nigeria",
+    points: [
+      "Built ESAAM, a LightGBM-powered app for predicting Multi-dimensional Poverty Index (MPI) and measuring the impact of tech training on poverty reduction.",
+      "Designed a custom web-scraping pipeline to gather fellow-level training data from a specialised public database.",
+      "Delivered logistic regression and preprocessing work on the Wisconsin Health and Titanic datasets.",
+    ],
+  },
+  {
+    period: "Jul 2024 — Aug 2024",
+    role: "Data Analysis Intern",
+    org: "HNG Internship 11",
+    location: "Remote, Nigeria",
+    points: [
+      "Designed a dimensional model for sales analysis in a car-repair shop using SQL.",
+      "Modelled Nigerian productivity from key economic indicators, and predicted flood events from historical weather and sea data.",
+      "Applied geospatial analysis to detect rigging outliers in a Nigerian election dataset.",
+    ],
+  },
+  {
+    period: "Jul 2024 — Aug 2024",
+    role: "Tax Analysis Intern",
+    org: "KPMG US — Forage Tax Simulation",
+    location: "Remote, US",
+    points: [
+      "Conducted research and produced tax recommendations using the IRAC approach for a client research memorandum.",
+      "Used Excel for data modelling and cleaning in support of tax analysis.",
+    ],
+  },
+  {
+    period: "Jul 2023 — Feb 2024",
+    role: "Graduate Research Assistant",
+    org: "Science & Technology Education Dept., Obafemi Awolowo University",
+    location: "Ife, Osun, Nigeria",
+    points: [
+      "Handled and analysed real-time primary and secondary data — quantitative and qualitative — across multiple research projects.",
+      "Applied parametric and non-parametric statistical techniques to test hypotheses and produce publishable manuscripts.",
+      "Ran dimensionality reduction and regression on economic data linking banking systems to GDP, inflation and FX rates in Nigeria.",
+    ],
+  },
+];
+
+export const teaching = {
+  role: "Data Analytics & Business Intelligence Tutor",
+  org: "Baskenky",
+  url: "https://www.babskenky.com/",
+  desc: "Teaching analytics engineering, dbt, SQL, Python, Power BI, and Git/GitHub workflows to aspiring data professionals — translating production data practice into a structured, mentor-led curriculum.",
+  topics: ["Analytics Engineering", "dbt", "SQL", "Git & GitHub", "Power BI", "Python for Analysts"],
+};
+
+export type Project = {
+  name: string;
+  category: "AI Engineering" | "ML & Data Science" | "Analytics" | "Research";
+  year: string;
+  description: string;
+  stack: string[];
+  links: { label: string; url: string }[];
+  featured?: boolean;
+  status?: string;
+};
+
+export const projects: Project[] = [
+  {
+    name: "AIDER — AI-Driven Emergency Response",
+    category: "AI Engineering",
+    year: "2025",
+    description:
+      "A real-time disaster-intelligence system built for Africa. AIDER fuses live weather data, breaking disaster news and satellite imagery, then uses multimodal AI to generate actionable emergency briefs for any location on the continent.",
+    stack: ["Flask", "Google Gemini Pro Vision", "OpenWeather API", "Serper.dev", "NASA Earth API"],
+    links: [
+      { label: "GitHub", url: "https://github.com/HonTime2023/AIDER" },
+      { label: "Kaggle Notebook", url: "https://www.kaggle.com/code/bellomalik/aider-bello-malik" },
+      { label: "Medium Write-up", url: "https://medium.com/@belloayopelumi/aider-how-i-built-a-real-time-ai-disaster-assistant-for-africa-1964d5fe79c2" },
+      { label: "Watch Demo", url: "https://www.youtube.com/watch?v=yAWXHt9sXNg&t=424s" },
+    ],
+    featured: true,
+  },
+  {
+    name: "Intelligent Document Processing — AWS Bedrock RAG",
+    category: "AI Engineering",
+    year: "2025",
+    description:
+      "An end-to-end retrieval-augmented generation pipeline on AWS, built as an AI Engineer Nanodegree capstone: PDFs are ingested into S3, indexed into Aurora Serverless Postgres with pgvector/HNSW, and served through a Bedrock Knowledge Base Agent that reasons over the corpus with Claude — with category-classification prompt validation keeping a heavy-machinery support bot on-topic.",
+    stack: ["AWS Bedrock", "Aurora Serverless (pgvector)", "Terraform", "Streamlit", "Claude"],
+    links: [
+      { label: "GitHub", url: "https://github.com/HonTime2023/Intelligent-Document-Processing-System-with-Amazon-Bedrock" },
+    ],
+    featured: true,
+  },
+  {
+    name: "Maya — Voice-First AI Companion",
+    category: "AI Engineering",
+    year: "2026",
+    description:
+      "A voice-first personal AI assistant running on a single real-time speech pipeline. Maya holds natural conversation while calling out to a live toolbelt — weather, alarms and reminders, health tracking (sleep, water, mood, medication), Spotify playback, Telegram messaging, and an emergency SOS routine with repeating alerts and motion detection.",
+    stack: ["Deepgram Voice Agent (STT+TTS)", "GPT-4o-mini", "OpenCV", "Telegram Bot API", "Spotify OAuth"],
+    links: [],
+    status: "Coming soon — in final packaging for public release",
+  },
+  {
+    name: "ESAAM — Exploratory & Sensitivity Analysis App",
+    category: "ML & Data Science",
+    year: "2024",
+    description:
+      "A LightGBM-powered application built during the 3MTT Nigeria fellowship to predict Multi-dimensional Poverty Index (MPI) and quantify how tech-skills training moves the needle on poverty reduction — open-sourced as a knowledge showcase for fellow analysts.",
+    stack: ["Python", "LightGBM", "Streamlit", "Sensitivity Analysis"],
+    links: [
+      { label: "GitHub", url: "https://github.com/HonTime2023/3MTTshowcase" },
+      { label: "Full Report", url: "http://bit.ly/4i8dhDn" },
+      { label: "Live App", url: "https://bit.ly/3X4Otma" },
+    ],
+    featured: true,
+  },
+  {
+    name: "Multi-Agent Vehicle Routing (TSP/VRP)",
+    category: "ML & Data Science",
+    year: "2025",
+    description:
+      "A real-world variant of the Travelling Salesman Problem: ~3,957 geolocated points assigned across 41 agents, with routes optimised for minimum combined distance and balanced per-agent workload, respecting Earth-curvature distances.",
+    stack: ["OR-Tools", "GeoPandas", "Mapbox", "Google Vision", "Tesseract OCR"],
+    links: [
+      { label: "GitHub", url: "https://github.com/HonTime2023/Traveling-Salesman-Problem-MVP-variant-" },
+    ],
+  },
+  {
+    name: "NYC Green Taxi Operations & Demand Intelligence",
+    category: "Analytics",
+    year: "2024",
+    description:
+      "A two-part capstone turning 1.73M raw NYC green-taxi trip records (2017–2020) into a dispatcher-ready analytics model: Python cleans and profiles the data, while a SQL Server build/analysis pipeline answers demand, revenue and zone-performance questions for operations decision-making.",
+    stack: ["Python", "Pandas", "SQL Server (T-SQL)", "Data Cleaning", "EDA"],
+    links: [],
+  },
+  {
+    name: "Nepal Climate Risk & Resilience — \"Before the Water Rises\"",
+    category: "ML & Data Science",
+    year: "2026",
+    description:
+      "A data-storytelling app tracing Nepal's climate and disaster risk from 1990 to the 2026 Bhote Koshi flood — from hazard evidence, through exposure and vulnerability, to regression-backed evidence supporting a $100M resilience-fund allocation. Built on NASA POWER, HydroSHEDS, national census, DesInventar/UNDRR and UNDP RAPIDA data.",
+    stack: ["Python", "Streamlit", "GeoPandas", "Regression Analysis"],
+    links: [],
+    featured: true,
+  },
+  {
+    name: "Fellow Data Web-Scraper",
+    category: "Analytics",
+    year: "2024",
+    description:
+      "A purpose-built scraping pipeline that collected fellow-level training data from a specialised public database, feeding the dataset later used to train ESAAM's MPI model.",
+    stack: ["Python", "Web Scraping", "Data Pipelines"],
+    links: [{ label: "GitHub", url: "https://github.com/HonTime2023/Webscrapper" }],
+  },
+];
+
+export type Publication = {
+  title: string;
+  venue: string;
+  year: string;
+  type: "Journal Article" | "Conference Presentation";
+  url?: string;
+};
+
+export const publications: Publication[] = [
+  {
+    title: "Interactivity as a Retention Factor for Learning Biology with the Protégé Effect",
+    venue: "Journal of Teaching and Learning, 19(1), 107–130",
+    year: "2025",
+    type: "Journal Article",
+  },
+  {
+    title: "The Influence of Emigration Potential (Japa Syndrome) on the Teaching Motivation and Teaching Efficacy of Pre-Service Teachers",
+    venue: "Sapientia Foundation Journal of Education, Sciences and Gender Studies, 6(3), 235–251",
+    year: "2024",
+    type: "Journal Article",
+  },
+  {
+    title: "The Influence of Interactivity on the Long-Term Retention Benefits of Learning Biology Concepts with the Protégé Effect",
+    venue: "12th International Mardin Artuklu Scientific Researches Conference, Mardin, Türkiye",
+    year: "2024",
+    type: "Conference Presentation",
+  },
+];
+
+export const education = [
+  {
+    period: "Jan 2025 — Jan 2027",
+    degree: "M.Sc. Financial Engineering",
+    org: "WorldQuant University",
+  },
+  {
+    period: "Feb 2024 — May 2025",
+    degree: "Professional Diploma in Data Analytics",
+    org: "Baze University, Abuja, Nigeria",
+  },
+  {
+    period: "2023",
+    degree: "B.Sc. Ed, Biology — First Class Honours (CGPA 4.83/5.0)",
+    org: "Obafemi Awolowo University · Best Graduating Student, Faculty of Education",
+  },
+];
+
+export type Recommendation = {
+  name: string;
+  title: string;
+  relationship: string;
+  quote: string;
+  avatar?: string;
+};
+
+// Add LinkedIn recommendations here as they come in — shape matches the
+// Recommendation type above. Leave empty to show the "coming soon" state.
+export const recommendations: Recommendation[] = [];
+
+export const certifications = [
+  "Microsoft Certified: Azure AI Engineer Fundamentals (AI-900)",
+  "AWS Introduction to AI",
+  "Registered Data Scientist, Data Science Nigeria (DSN/AIPlus/2025/44220)",
+  "Registered Data Analyst, Nigerian Society of Data Analysts & BI Experts (NSDABIE)",
+];
