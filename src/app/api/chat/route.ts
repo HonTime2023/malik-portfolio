@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
             parts: [{ text: `${SYSTEM_INSTRUCTION}\n\nCONTEXT ABOUT MALIK:\n${buildKnowledgeBase()}` }],
           },
           contents,
-          generationConfig: { temperature: 0.6, maxOutputTokens: 500 },
+          generationConfig: { temperature: 0.95, topP: 0.95, maxOutputTokens: 650 },
         }),
       }
     );

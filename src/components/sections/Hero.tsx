@@ -30,15 +30,10 @@ export function Hero() {
           {siteConfig.name}
         </motion.p>
 
-        <motion.div initial="hidden" animate="show" custom={0.4} variants={fadeUp} className="grid gap-3 sm:grid-cols-2">
-          <NowPlaying />
-          <NewsFeed />
-        </motion.div>
-
         <motion.div
           initial="hidden"
           animate="show"
-          custom={0.8}
+          custom={0.5}
           variants={fadeUp}
           className="inline-flex items-center gap-2 rounded-full border border-brand-border bg-brand-surface/40 px-3 py-1.5 text-xs text-brand-accent"
         >
@@ -129,6 +124,16 @@ export function Hero() {
             <p className="text-xs text-brand-muted">{siteConfig.role} · {siteConfig.location}</p>
           </div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          className="mt-4 space-y-3"
+        >
+          <NowPlaying />
+          <NewsFeed />
+        </motion.div>
       </motion.div>
     </section>
   );

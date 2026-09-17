@@ -3,6 +3,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { Metrics } from "@/components/sections/Metrics";
 import { Capabilities } from "@/components/sections/Capabilities";
+import { Algorithms } from "@/components/sections/Algorithms";
 import { Projects } from "@/components/sections/Projects";
 import { Research } from "@/components/sections/Research";
 import { Experience } from "@/components/sections/Experience";
@@ -25,6 +26,7 @@ export default function Home() {
             <Hero />
             <Metrics />
             <Capabilities />
+            <Algorithms />
             <Projects />
             <Research />
             <Experience />

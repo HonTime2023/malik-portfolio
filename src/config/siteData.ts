@@ -2,6 +2,7 @@ export const siteConfig = {
   name: "Malik Pelumi Bello",
   shortName: "Malik Pelumi Bello",
   aiName: "Time",
+  cvUrl: "/files/Malik-Pelumi-Bello-CV.pdf",
   role: "AI / ML Engineer",
   company: "Wema Bank Plc",
   companyDetail: "Data Analytics & AI Team",
@@ -40,7 +41,7 @@ export const nowPlaying = {
 
 export const metrics = [
   { label: "Years in Applied Data & AI", value: "5+" },
-  { label: "Production ML / GenAI Systems Shipped", value: "6+" },
+  { label: "Production ML / GenAI Systems Shipped", value: "15+" },
   { label: "Peer-Reviewed & Conference Publications", value: "3" },
   { label: "Core Domain", value: "Fintech · Public Sector · Research" },
 ];
@@ -345,15 +346,26 @@ export type Certification = {
 };
 
 export const certifications: Certification[] = [
-  { title: "AI Engineer Nanodegree", issuer: "Udacity (AWS-backed)", date: "Nov 2025" },
+  { title: "AI Engineer Nanodegree", issuer: "Udacity (AWS-backed)", date: "Nov 2025", url: "https://www.udacity.com/certificate/e/ace6e02-8152-11f0-9d43-3bcb633ee64b" },
   { title: "Certified Data Science Scholar (CDSS)", issuer: "International Institute of Independent Professionals & Scholars (IIIPS)", date: "Oct 2025" },
-  { title: "Data Modeling in Power BI", issuer: "Microsoft, via Coursera", date: "Jul 2025" },
+  { title: "Data Modeling in Power BI", issuer: "Microsoft, via Coursera", date: "Jul 2025", url: "https://coursera.org/verify/GFB3PL0Y8D3H" },
   { title: "Aspire Leaders Program", issuer: "Aspire Institute (Harvard-affiliated faculty)", date: "May 2025" },
   { title: "Microsoft Certified: Azure AI Engineer Fundamentals (AI-900)", issuer: "Microsoft" },
   { title: "AWS Introduction to AI", issuer: "Amazon Web Services" },
   { title: "Statistical Consulting", issuer: "Dataville — coursework in consulting practice, ethics, billing and statistical software packages" },
+];
+
+export type Community = {
+  title: string;
+  issuer: string;
+  url?: string;
+};
+
+export const communities: Community[] = [
   { title: "Registered Data Scientist", issuer: "Data Science Nigeria (DSN/AIPlus/2025/44220)" },
   { title: "Registered Data Analyst", issuer: "Nigerian Society of Data Analysts & BI Experts (NSDABIE)" },
+  { title: "Kaggle Community Member", issuer: "Kaggle", url: "https://www.kaggle.com/bellomalik" },
+  { title: "Data Analytics & BI Tutor", issuer: "Baskenky", url: "https://www.babskenky.com/" },
 ];
 
 export const kaggleBadges = [
@@ -410,10 +422,10 @@ export const volunteering: VolunteeringItem[] = [
     ],
   },
   {
-    period: "Jun 2021 — Jun 2023",
-    role: "SRC Honourable Member",
-    org: "Great Ife Student Union, Obafemi Awolowo University",
-    points: ["Elected student representative; also served as Chairman, Audit Committee, STESA (2023)."],
+    period: "Present",
+    role: "Data Analysis Tutor",
+    org: "The Ireti Foundation",
+    points: ["Teaching data analysis fundamentals as part of the foundation's digital literacy programme."],
   },
 ];
 
@@ -472,24 +484,33 @@ export type CarouselItem = {
   subtitle?: string;
   image?: string;
   icon?: CarouselIcon;
+  url?: string;
 };
 
 export const hobbies = {
   intro:
     "Outside the notebooks and dashboards — the things that actually run in the background.",
   movies: [
-    { title: "My Best Friend's Wedding", subtitle: "Favourite film" },
+    { title: "Foundation", subtitle: "Apple TV+ series" },
     { title: "The 100", subtitle: "TV series" },
     { title: "The Imitation Game", subtitle: "Film" },
+    { title: "Good Will Hunting", subtitle: "Film" },
+    { title: "The Theory of Everything", subtitle: "Film" },
+    { title: "The Boy Who Harnessed the Wind", subtitle: "Film" },
+    { title: "Green Lantern", subtitle: "Film" },
+    { title: "Doctor Strange", subtitle: "Film" },
+    { title: "Avengers: Endgame", subtitle: "Film" },
   ] as CarouselItem[],
   relax: [
     { title: "Max Amini", subtitle: "Stand-up comedy", icon: "mic" },
     { title: "Manchester City", subtitle: "Football club", icon: "shield" },
     { title: "Lionel Messi", subtitle: "The GOAT", icon: "star" },
     { title: "Taking Walks", subtitle: "Thinking time", icon: "footprints" },
+    { title: "Writing Poems", subtitle: "Putting thoughts to page", icon: "book" },
   ] as CarouselItem[],
   books: [
     { title: "Ikigai", subtitle: "Héctor García & Francesc Miralles" },
+    { title: "Atomic Habits", subtitle: "James Clear" },
     { title: "Discipline Is Destiny", subtitle: "Ryan Holiday" },
     { title: "Zero to One", subtitle: "Peter Thiel" },
     { title: "The Hundred-Page Machine Learning Book", subtitle: "Andriy Burkov" },

@@ -47,7 +47,7 @@ export async function GET() {
     FEEDS.map(async ({ url, source }) => {
       const res = await fetch(url, {
         headers: { "User-Agent": "Mozilla/5.0 (compatible; MalikPortfolioBot/1.0)" },
-        next: { revalidate: 1800 },
+        next: { revalidate: 300 },
       });
       if (!res.ok) throw new Error(`${source} feed failed`);
       const xml = await res.text();
@@ -64,6 +64,6 @@ export async function GET() {
 
   return NextResponse.json(
     { items },
-    { headers: { "Cache-Control": "public, s-maxage=1800, stale-while-revalidate=3600" } }
+    { headers: { "Cache-Control": "public, s-maxage=300, stale-while-revalidate=900" } }
   );
 }

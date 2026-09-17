@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Bot, CornerDownLeft, Sparkles, User } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ChatMarkdown } from "@/components/ui/ChatMarkdown";
 import { useChat } from "@/context/ChatContext";
 import { siteConfig } from "@/config/siteData";
 import { cn } from "@/lib/utils";
@@ -67,7 +68,7 @@ export function AskAI() {
                   m.role === "user" ? "bg-brand-accent text-brand-bg" : "bg-brand-bg-soft text-brand-text/90"
                 )}
               >
-                {m.content}
+                {m.role === "assistant" ? <ChatMarkdown content={m.content} /> : m.content}
               </div>
             </motion.div>
           ))}

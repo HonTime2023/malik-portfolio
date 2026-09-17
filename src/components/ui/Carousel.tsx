@@ -1,7 +1,9 @@
 "use client";
 
 import { useRef } from "react";
-import { BookOpen, ChevronLeft, ChevronRight, Film, Footprints, Mic2, Shield, Star, type LucideIcon } from "lucide-react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { ArrowUpRight, BookOpen, ChevronLeft, ChevronRight, Film, Footprints, Mic2, Shield, Star, type LucideIcon } from "lucide-react";
 import type { CarouselIcon, CarouselItem } from "@/config/siteData";
 
 const ICONS: Record<CarouselIcon, LucideIcon> = {
@@ -24,23 +26,43 @@ export function Carousel({ items, icon: fallbackIcon }: { items: CarouselItem[];
     <div className="group/carousel relative">
       <div
         ref={trackRef}
-        className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 pb-4 pt-1 scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {items.map((item) => {
           const Icon = (item.icon && ICONS[item.icon]) || fallbackIcon;
-          return (
-          <div
-            key={item.title}
-            className="flex w-[220px] shrink-0 snap-start flex-col gap-4 rounded-2xl border border-brand-border bg-brand-surface/20 p-5"
-          >
-            <div className="flex h-32 w-full items-center justify-center rounded-xl bg-brand-accent/10">
-              <Icon className="h-10 w-10 text-brand-accent" strokeWidth={1.5} />
+          const content = (
+            <motion.div
+              whileHover={{ scale: 1.06, y: -6 }}
+              transition={{ type: "spring", stiffness: 300, damping: 18 }}
+              className="flex h-full w-[220px] shrink-0 snap-start flex-col gap-4 rounded-2xl border border-brand-border bg-brand-surface/20 p-5 hover:border-brand-accent/60 hover:shadow-[0_12px_30px_-8px_rgba(241,196,15,0.35)]"
+            >
+              <div className="relative flex h-32 w-full items-center justify-center overflow-hidden rounded-xl bg-brand-accent/10">
+                {item.image ? (
+                  <Image src={item.image} alt={item.title} fill className="object-cover" />
+                ) : (
+                  <Icon className="h-10 w-10 text-brand-accent" strokeWidth={1.5} />
+                )}
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-semibold text-brand-text">{item.title}</p>
+                {item.subtitle && <p className="mt-0.5 text-xs text-brand-muted">{item.subtitle}</p>}
+              </div>
+              {item.url && (
+                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-brand-accent">
+                  View <ArrowUpRight className="h-3 w-3" />
+                </span>
+              )}
+            </motion.div>
+          );
+
+          return item.url ? (
+            <a key={item.title} href={item.url} target="_blank" rel="noreferrer" className="shrink-0">
+              {content}
+            </a>
+          ) : (
+            <div key={item.title} className="shrink-0">
+              {content}
             </div>
-            <div>
-              <p className="text-sm font-semibold text-brand-text">{item.title}</p>
-              {item.subtitle && <p className="mt-0.5 text-xs text-brand-muted">{item.subtitle}</p>}
-            </div>
-          </div>
           );
         })}
       </div>

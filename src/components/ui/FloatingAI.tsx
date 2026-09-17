@@ -6,6 +6,7 @@ import { Bot, CornerDownLeft, Sparkles, User, X } from "lucide-react";
 import { useChat } from "@/context/ChatContext";
 import { siteConfig } from "@/config/siteData";
 import { cn } from "@/lib/utils";
+import { ChatMarkdown } from "./ChatMarkdown";
 
 export function FloatingAI() {
   const [open, setOpen] = useState(false);
@@ -60,7 +61,7 @@ export function FloatingAI() {
                       m.role === "user" ? "bg-brand-accent text-brand-bg" : "bg-brand-bg-soft text-brand-text/90"
                     )}
                   >
-                    {m.content}
+                    {m.role === "assistant" ? <ChatMarkdown content={m.content} small /> : m.content}
                   </div>
                 </div>
               ))}
