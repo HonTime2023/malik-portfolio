@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, BookOpen, GraduationCap, Mic2 } from "lucide-react";
-import { publications, teaching, siteConfig } from "@/config/siteData";
+import { ArrowUpRight, BookOpen, Database, GitBranch, GraduationCap, Lightbulb, Mic2 } from "lucide-react";
+import { publications, teaching, siteConfig, researchInterests, domainFocus, datasets, openSourceContributions } from "@/config/siteData";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function Research() {
@@ -13,6 +13,14 @@ export function Research() {
         title="Published work, and the discipline behind the models."
         description="Peer-reviewed research and conference work in learning science and social research — the same rigor applied to every model shipped."
       />
+
+      <div className="flex flex-wrap gap-2">
+        {domainFocus.map((d) => (
+          <span key={d} className="rounded-full border border-brand-accent/30 bg-brand-accent/5 px-3 py-1 text-xs font-medium text-brand-accent">
+            {d}
+          </span>
+        ))}
+      </div>
 
       <div className="grid gap-5 lg:grid-cols-[1.4fr_1fr]">
         <div className="space-y-4">
@@ -89,6 +97,64 @@ export function Research() {
           >
             Visit Baskenky <ArrowUpRight className="h-3.5 w-3.5" />
           </a>
+        </div>
+      </div>
+
+      {/* Research interests */}
+      <div className="space-y-6 border-t border-brand-border pt-10">
+        <h3 className="font-heading text-sm font-bold uppercase tracking-wider text-brand-accent">Research Interests</h3>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {researchInterests.map((r) => (
+            <div key={r.title} className="space-y-2 rounded-2xl border border-brand-border bg-brand-surface/10 p-5">
+              <div className="flex items-center gap-2">
+                <Lightbulb className="h-4 w-4 text-brand-accent" />
+                <h4 className="text-sm font-semibold text-brand-text">{r.title}</h4>
+              </div>
+              <p className="text-xs leading-relaxed text-brand-muted">{r.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Datasets & Open Source */}
+      <div className="grid gap-5 border-t border-brand-border pt-10 md:grid-cols-2">
+        <div className="rounded-2xl border border-dashed border-brand-border bg-brand-surface/10 p-6">
+          <div className="flex items-center gap-2">
+            <Database className="h-4 w-4 text-brand-accent" />
+            <h3 className="font-heading text-sm font-bold uppercase tracking-wider text-brand-accent">Open Datasets</h3>
+          </div>
+          {datasets.length === 0 ? (
+            <p className="mt-3 text-sm text-brand-muted">
+              Public datasets published for open use are on the way — check back soon, or follow on Kaggle for the first release.
+            </p>
+          ) : (
+            <ul className="mt-3 space-y-2">
+              {datasets.map((d) => (
+                <li key={d.title} className="text-sm text-brand-text/90">
+                  {d.title} — <span className="text-brand-muted">{d.description}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        <div className="rounded-2xl border border-dashed border-brand-border bg-brand-surface/10 p-6">
+          <div className="flex items-center gap-2">
+            <GitBranch className="h-4 w-4 text-brand-accent" />
+            <h3 className="font-heading text-sm font-bold uppercase tracking-wider text-brand-accent">Open Source Contributions</h3>
+          </div>
+          {openSourceContributions.length === 0 ? (
+            <p className="mt-3 text-sm text-brand-muted">
+              Contributions to open-source projects outside his own repos — coming soon.
+            </p>
+          ) : (
+            <ul className="mt-3 space-y-2">
+              {openSourceContributions.map((c) => (
+                <li key={c.project} className="text-sm text-brand-text/90">
+                  {c.project} — <span className="text-brand-muted">{c.description}</span>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </section>

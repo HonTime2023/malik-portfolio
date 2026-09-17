@@ -7,6 +7,11 @@ import {
   education,
   certifications,
   teaching,
+  awards,
+  volunteering,
+  researchInterests,
+  domainFocus,
+  kaggleBadges,
 } from "./siteData";
 
 // A structured "brain dump" fed to the AI as grounding context so it answers
@@ -31,6 +36,10 @@ export function buildKnowledgeBase(): string {
 
   const capText = capabilities.map((c) => `- ${c.title}: ${c.desc} Tools: ${c.tech.join(", ")}.`).join("\n");
   const eduText = education.map((e) => `- ${e.degree}, ${e.org} (${e.period})`).join("\n");
+  const certText = certifications
+    .map((c) => `- ${c.title} — ${c.issuer}${c.date ? ` (${c.date})` : ""}`)
+    .join("\n");
+  const interestText = researchInterests.map((r) => `- ${r.title}: ${r.description}`).join("\n");
 
   return `
 IDENTITY
@@ -38,13 +47,23 @@ Name: ${siteConfig.name}
 Current role: ${siteConfig.role}, ${siteConfig.company} (${siteConfig.companyDetail}), based in ${siteConfig.location}.
 Personal philosophy / tagline: "${siteConfig.tagline}"
 Working philosophy: "Data is Everywhere. Advantage is Rare. I Build the Difference." He believes most organisations already drown in data; the scarce skill is turning it into a defensible advantage through careful modelling, statistical rigor and judgment about what actually matters to a decision-maker.
+Domain focus / niche: ${domainFocus.join(", ")}.
 Background note: Malik's path is unusual — he graduated first-class in Biology Education from Obafemi Awolowo University (Best Graduating Student, Faculty of Education) before moving into data science, machine learning and now GenAI/AI engineering in fintech. That research-and-teaching background is why he treats statistical rigor (hypothesis testing, quasi-experimental design, sensitivity analysis) as a first-class part of ML work, not an afterthought.
 
 EDUCATION
 ${eduText}
 
 CERTIFICATIONS
-${certifications.join("\n- ")}
+${certText}
+
+KAGGLE
+${kaggleBadges.join("\n- ")}
+
+AWARDS & SCHOLARSHIPS
+${awards.join("\n- ")}
+
+VOLUNTEERING & LEADERSHIP
+${volunteering.map((v) => `- [${v.period}] ${v.role}, ${v.org}: ${v.points.join(" ")}`).join("\n")}
 
 WORK EXPERIENCE (most recent first)
 ${expText}
@@ -55,8 +74,13 @@ ${teaching.role} at ${teaching.org} (${teaching.url}) — ${teaching.desc}
 CORE CAPABILITIES
 ${capText}
 
+RESEARCH INTERESTS
+${interestText}
+Note: Malik has early-stage, unpublished research in progress on graph/network-based ML for African trade systems. If asked for technical specifics of unpublished work, say it's in progress and not public yet — do not speculate on methodology.
+
 FEATURED PROJECTS
 ${projText}
+Note: all featured projects are personal work. Professional work, including everything built at Wema Bank Plc, is under NDA and isn't detailed here.
 
 PUBLISHED RESEARCH
 ${pubText}
@@ -73,11 +97,11 @@ Email: ${siteConfig.email}
 `.trim();
 }
 
-export const SYSTEM_INSTRUCTION = `You are the AI assistant embedded on Malik Pelumi Bello's personal portfolio website. Your job is to answer visitors' questions about Malik — his background, skills, projects, research, working philosophy and how to reach him — the way a sharp, well-briefed colleague would, in first-person-adjacent third person ("Malik built...", "he approaches problems by...").
+export const SYSTEM_INSTRUCTION = `You are ${siteConfig.aiName}, the AI assistant embedded on Malik Pelumi Bello's personal portfolio website. Your job is to answer visitors' questions about Malik — his background, skills, projects, research, working philosophy and how to reach him — the way a sharp, well-briefed colleague would, in first-person-adjacent third person ("Malik built...", "he approaches problems by...").
 
 Rules:
-1. Only state facts that are present in the CONTEXT block you're given below. If asked something not covered (e.g. salary, personal life, employer-confidential details), say you don't have that information and suggest they ask Malik directly via email.
-2. When someone asks how to reach Malik, contact him, hire him, or collaborate with him, always give his email (${`belloayopelumi@gmail.com`}) and LinkedIn link, and encourage them to use the "Let's Talk" button or contact form on the site.
+1. Only state facts that are present in the CONTEXT block you're given below. If asked something not covered (e.g. salary, personal life, employer-confidential details, or specifics of his unpublished research), say you don't have that information and suggest they ask Malik directly via email.
+2. When someone asks how to reach Malik, contact him, hire him, or collaborate with him, always give his email (belloayopelumi@gmail.com) and LinkedIn link, and encourage them to use the "Let's Talk" button or contact form on the site.
 3. Be concise (2-5 sentences per answer unless asked for detail), confident, and technically precise — this is an AI/ML engineer's site, so don't dumb things down, but stay readable to non-experts too.
-4. Never invent metrics, employers, or projects that aren't in the context.
-5. If asked "who are you" — explain you're an AI trained on Malik's portfolio content to help visitors explore his work quickly.`;
+4. Never invent metrics, employers, projects, or medals that aren't in the context — in particular, he has no Kaggle competition medals, only the badges listed.
+5. If asked "who are you" or "what's your name" — say your name is ${siteConfig.aiName}, an AI trained on Malik's portfolio content to help visitors explore his work quickly.`;

@@ -4,6 +4,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Mail, Terminal } from "lucide-react";
 import { siteConfig } from "@/config/siteData";
+import { NowPlaying } from "@/components/ui/NowPlaying";
+import { NewsFeed } from "@/components/ui/NewsFeed";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 18 },
@@ -18,10 +20,25 @@ export function Hero() {
   return (
     <section id="top" className="relative grid gap-12 pt-16 pb-8 md:grid-cols-[1.15fr_0.85fr] md:pt-24">
       <div className="space-y-8">
-        <motion.div
+        <motion.p
           initial="hidden"
           animate="show"
           custom={0}
+          variants={fadeUp}
+          className="font-heading text-lg font-semibold tracking-tight text-brand-text sm:text-xl"
+        >
+          {siteConfig.name}
+        </motion.p>
+
+        <motion.div initial="hidden" animate="show" custom={0.4} variants={fadeUp} className="grid gap-3 sm:grid-cols-2">
+          <NowPlaying />
+          <NewsFeed />
+        </motion.div>
+
+        <motion.div
+          initial="hidden"
+          animate="show"
+          custom={0.8}
           variants={fadeUp}
           className="inline-flex items-center gap-2 rounded-full border border-brand-border bg-brand-surface/40 px-3 py-1.5 text-xs text-brand-accent"
         >
@@ -86,7 +103,7 @@ export function Hero() {
             href="#ask-ai"
             className="inline-flex items-center gap-2 rounded-md border border-dashed border-brand-accent/50 px-6 py-3 text-sm font-semibold text-brand-accent transition-colors hover:bg-brand-accent/10"
           >
-            Ask My AI About Me
+            Ask {siteConfig.aiName} About Me
           </a>
         </motion.div>
       </div>

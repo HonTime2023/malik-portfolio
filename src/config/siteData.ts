@@ -1,6 +1,7 @@
 export const siteConfig = {
   name: "Malik Pelumi Bello",
-  shortName: "Malik Bello",
+  shortName: "Malik Pelumi Bello",
+  aiName: "Time",
   role: "AI / ML Engineer",
   company: "Wema Bank Plc",
   companyDetail: "Data Analytics & AI Team",
@@ -26,6 +27,15 @@ export const siteConfig = {
     linktree: "https://linktr.ee/bellomalik",
     babskenky: "https://www.babskenky.com/",
   },
+};
+
+// Manually-curated for now — swap for a live Spotify "currently playing" call
+// once the Spotify Developer app + OAuth is wired up (see /api/now-playing).
+export const nowPlaying = {
+  connected: false,
+  track: "On Repeat",
+  artist: "Playlist syncing soon",
+  spotifyUrl: "https://open.spotify.com/",
 };
 
 export const metrics = [
@@ -163,6 +173,9 @@ export type Project = {
   status?: string;
 };
 
+export const projectsNote =
+  "Every project below is personal work, built and published in my own time. Source code for professional work — including everything built for Wema Bank Plc — is covered by NDA and isn't shown here, though I'm glad to speak to the impact and approach in conversation.";
+
 export const projects: Project[] = [
   {
     name: "AIDER — AI-Driven Emergency Response",
@@ -254,6 +267,15 @@ export const projects: Project[] = [
     stack: ["Python", "Web Scraping", "Data Pipelines"],
     links: [{ label: "GitHub", url: "https://github.com/HonTime2023/Webscrapper" }],
   },
+  {
+    name: "Indeed Job Market Scraper & Insights",
+    category: "Analytics",
+    year: "2025",
+    description:
+      "A proxy-backed scraping pipeline over the Oxylabs API that collects and parses live Indeed job postings, then rolls them up into a cleaned dataset with market insights on roles, locations and demand.",
+    stack: ["Python", "Oxylabs API", "Pandas"],
+    links: [{ label: "GitHub", url: "https://github.com/HonTime2023/indeed-job-market-scraper" }],
+  },
 ];
 
 export type Publication = {
@@ -315,9 +337,162 @@ export type Recommendation = {
 // Recommendation type above. Leave empty to show the "coming soon" state.
 export const recommendations: Recommendation[] = [];
 
-export const certifications = [
-  "Microsoft Certified: Azure AI Engineer Fundamentals (AI-900)",
-  "AWS Introduction to AI",
-  "Registered Data Scientist, Data Science Nigeria (DSN/AIPlus/2025/44220)",
-  "Registered Data Analyst, Nigerian Society of Data Analysts & BI Experts (NSDABIE)",
+export type Certification = {
+  title: string;
+  issuer: string;
+  date?: string;
+  url?: string;
+};
+
+export const certifications: Certification[] = [
+  { title: "AI Engineer Nanodegree", issuer: "Udacity (AWS-backed)", date: "Nov 2025" },
+  { title: "Certified Data Science Scholar (CDSS)", issuer: "International Institute of Independent Professionals & Scholars (IIIPS)", date: "Oct 2025" },
+  { title: "Data Modeling in Power BI", issuer: "Microsoft, via Coursera", date: "Jul 2025" },
+  { title: "Aspire Leaders Program", issuer: "Aspire Institute (Harvard-affiliated faculty)", date: "May 2025" },
+  { title: "Microsoft Certified: Azure AI Engineer Fundamentals (AI-900)", issuer: "Microsoft" },
+  { title: "AWS Introduction to AI", issuer: "Amazon Web Services" },
+  { title: "Statistical Consulting", issuer: "Dataville — coursework in consulting practice, ethics, billing and statistical software packages" },
+  { title: "Registered Data Scientist", issuer: "Data Science Nigeria (DSN/AIPlus/2025/44220)" },
+  { title: "Registered Data Analyst", issuer: "Nigerian Society of Data Analysts & BI Experts (NSDABIE)" },
 ];
+
+export const kaggleBadges = [
+  "Completed 5-Day Gen AI Intensive (Kaggle × Google)",
+  "Python Coder",
+  "Kaggle Community Member",
+  "2 Years on Kaggle",
+];
+
+export const awards = [
+  "2024 OAU Star Award of Excellence — exceptional academic performance",
+  "2024 Best Debater, MTG NYSC Rivers State Inter-Platoon Debate Competition",
+  "2023 Best Graduating Student (Summa Cum Laude), Faculty of Education, Obafemi Awolowo University",
+  "2023 Chief Dr (Mrs) Oluremi Tinubu Prize — Best Graduating Student in STE Biology, OAU",
+  "2023 Babs Fafunwa Educational Foundation Award",
+  "2023 Departmental Association Award of Leadership and Academic Excellence",
+  "2021 & 2022 Two-time Awardee, Aliu Abdul Kabir (AAF) Merit Scholarship",
+  "2021 UNIFEMGA Undergraduates' Merit Scholarship",
+];
+
+export type VolunteeringItem = {
+  period: string;
+  role: string;
+  org: string;
+  points: string[];
+};
+
+export const volunteering: VolunteeringItem[] = [
+  {
+    period: "Jul 2024 — Present",
+    role: "Data Analyst & Cohort Secretary",
+    org: "HAVEK Leadership Academy",
+    points: [
+      "Built an assessment framework for scholars' graduation criteria and mentor performance.",
+      "Led a full organisational capacity analysis using USAID's assessment guide.",
+    ],
+  },
+  {
+    period: "May 2024 — Present",
+    role: "Research Lead & Interim Secretary",
+    org: "Instride Pathways Youth Foundation",
+    points: [
+      "Part of the leadership team on Voice Africa, the foundation's flagship initiative.",
+      "Led a team comparing Logistic Regression, SVM and XGBoost on health datasets.",
+      "Coordinated data gathering across private secondary schools for the CIAY sensitisation programme.",
+    ],
+  },
+  {
+    period: "Oct 2024 — Present",
+    role: "Active Member",
+    org: "Humanity First Foundation",
+    points: [
+      "Planning committee member and keynote speaker for \"Pad-Up-A-Girl\" — reached 1,000+ students across two schools with sanitary pads and menstrual health education.",
+    ],
+  },
+  {
+    period: "Jun 2021 — Jun 2023",
+    role: "SRC Honourable Member",
+    org: "Great Ife Student Union, Obafemi Awolowo University",
+    points: ["Elected student representative; also served as Chairman, Audit Committee, STESA (2023)."],
+  },
+];
+
+export type ResearchInterest = {
+  title: string;
+  description: string;
+};
+
+export const researchInterests: ResearchInterest[] = [
+  {
+    title: "Graph & Network Models for African Trade and Economic Systems",
+    description:
+      "How relational, network-based machine learning — beyond flat tabular models — can capture the way African commodity and trade systems actually move together, especially under climate and macroeconomic shocks. Early-stage, ongoing work.",
+  },
+  {
+    title: "Machine Learning for Financial Risk & Decision-Making",
+    description:
+      "Applying predictive modelling and econometrics to banking and fintech risk problems — bridging his Financial Engineering training with production ML practice in a live banking environment.",
+  },
+  {
+    title: "Learning Science & the Protégé Effect",
+    description:
+      "Peer-reviewed research on interactivity and the Protégé Effect (teaching-to-learn) as retention factors in biology education — the original research thread his academic career started from.",
+  },
+  {
+    title: "AI for Public Sector & Social Impact",
+    description:
+      "Applying geospatial analysis, forecasting and NLP to public-interest problems — election-integrity detection, flood prediction, and poverty-index modelling among them.",
+  },
+];
+
+export const domainFocus = ["Banking & Fintech", "Financial Engineering", "Economics", "Biology & Health", "Public Sector"];
+
+export type Dataset = {
+  title: string;
+  description: string;
+  url?: string;
+};
+
+// Public datasets he's published for open use — empty until the first one ships.
+export const datasets: Dataset[] = [];
+
+export type OpenSourceContribution = {
+  project: string;
+  description: string;
+  url?: string;
+};
+
+// Contributions to others' open-source projects — coming soon.
+export const openSourceContributions: OpenSourceContribution[] = [];
+
+export type CarouselIcon = "film" | "book" | "mic" | "shield" | "star" | "footprints";
+
+export type CarouselItem = {
+  title: string;
+  subtitle?: string;
+  image?: string;
+  icon?: CarouselIcon;
+};
+
+export const hobbies = {
+  intro:
+    "Outside the notebooks and dashboards — the things that actually run in the background.",
+  movies: [
+    { title: "My Best Friend's Wedding", subtitle: "Favourite film" },
+    { title: "The 100", subtitle: "TV series" },
+    { title: "The Imitation Game", subtitle: "Film" },
+  ] as CarouselItem[],
+  relax: [
+    { title: "Max Amini", subtitle: "Stand-up comedy", icon: "mic" },
+    { title: "Manchester City", subtitle: "Football club", icon: "shield" },
+    { title: "Lionel Messi", subtitle: "The GOAT", icon: "star" },
+    { title: "Taking Walks", subtitle: "Thinking time", icon: "footprints" },
+  ] as CarouselItem[],
+  books: [
+    { title: "Ikigai", subtitle: "Héctor García & Francesc Miralles" },
+    { title: "Discipline Is Destiny", subtitle: "Ryan Holiday" },
+    { title: "Zero to One", subtitle: "Peter Thiel" },
+    { title: "The Hundred-Page Machine Learning Book", subtitle: "Andriy Burkov" },
+    { title: "Deep Learning", subtitle: "Goodfellow, Bengio & Courville" },
+  ] as CarouselItem[],
+};

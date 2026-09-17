@@ -1,12 +1,12 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Bot, CornerDownLeft, Sparkles, User } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { useChat } from "@/context/ChatContext";
+import { siteConfig } from "@/config/siteData";
 import { cn } from "@/lib/utils";
-
-type Message = { role: "user" | "assistant"; content: string };
 
 const suggestions = [
   "What is Malik's tech stack?",
@@ -16,60 +16,32 @@ const suggestions = [
 ];
 
 export function AskAI() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: "assistant",
-      content:
-        "Hi — I'm trained on Malik's portfolio, projects and research. Ask me anything about his work, how he thinks, or how to reach him.",
-    },
-  ]);
+  const { messages, loading, send } = useChat();
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const endRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
-  async function send(text: string) {
-    const content = text.trim();
-    if (!content || loading) return;
-    const next = [...messages, { role: "user" as const, content }];
-    setMessages(next);
-    setInput("");
-    setLoading(true);
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: next }),
-      });
-      const data = await res.json();
-      setMessages((m) => [...m, { role: "assistant", content: data.reply ?? "Something went wrong." }]);
-    } catch {
-      setMessages((m) => [
-        ...m,
-        { role: "assistant", content: "Network hiccup — try again, or email belloayopelumi@gmail.com." },
-      ]);
-    } finally {
-      setLoading(false);
-      setTimeout(() => endRef.current?.scrollIntoView({ behavior: "smooth" }), 50);
-    }
-  }
+  useEffect(() => {
+    const el = listRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [messages, loading]);
 
   return (
     <section id="ask-ai" className="space-y-8">
       <SectionHeading
         eyebrow="Query the Brain"
-        title="Ask my AI about me."
-        description="A small language model, grounded only in what's on this page — my work, my thinking, and how to reach me."
+        title={`Ask ${siteConfig.aiName} about me.`}
+        description="A small language model, grounded only in what's on this page — my work, my thinking, and how to reach me. Find it again anytime via the floating icon."
       />
 
       <div className="rounded-2xl border border-brand-border bg-brand-surface/20">
         <div className="flex items-center gap-2 border-b border-brand-border px-5 py-3.5">
           <Sparkles className="h-4 w-4 text-brand-accent" />
           <span className="font-mono text-xs uppercase tracking-wider text-brand-muted">
-            malik-ai · grounded assistant
+            {siteConfig.aiName.toLowerCase()} · grounded assistant
           </span>
         </div>
 
-        <div className="max-h-[420px] space-y-4 overflow-y-auto px-5 py-5">
+        <div ref={listRef} className="max-h-[420px] space-y-4 overflow-y-auto px-5 py-5">
           {messages.map((m, i) => (
             <motion.div
               key={i}
@@ -92,9 +64,7 @@ export function AskAI() {
               <div
                 className={cn(
                   "max-w-[80%] rounded-xl px-4 py-2.5 text-sm leading-relaxed",
-                  m.role === "user"
-                    ? "bg-brand-accent text-brand-bg"
-                    : "bg-brand-bg-soft text-brand-text/90"
+                  m.role === "user" ? "bg-brand-accent text-brand-bg" : "bg-brand-bg-soft text-brand-text/90"
                 )}
               >
                 {m.content}
@@ -108,7 +78,6 @@ export function AskAI() {
               <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-brand-accent [animation-delay:0.2s]" />
             </div>
           )}
-          <div ref={endRef} />
         </div>
 
         <div className="flex flex-wrap gap-2 px-5 pb-3">
@@ -127,6 +96,7 @@ export function AskAI() {
           onSubmit={(e) => {
             e.preventDefault();
             send(input);
+            setInput("");
           }}
           className="flex items-center gap-3 border-t border-brand-border px-5 py-4"
         >

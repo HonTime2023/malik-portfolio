@@ -6,30 +6,38 @@ import { Capabilities } from "@/components/sections/Capabilities";
 import { Projects } from "@/components/sections/Projects";
 import { Research } from "@/components/sections/Research";
 import { Experience } from "@/components/sections/Experience";
+import { Hobbies } from "@/components/sections/Hobbies";
 import { Recommendations } from "@/components/sections/Recommendations";
 import { AskAI } from "@/components/sections/AskAI";
 import { Connect } from "@/components/sections/Connect";
+import { FloatingAI } from "@/components/ui/FloatingAI";
+import { ChatProvider } from "@/context/ChatContext";
 
 export default function Home() {
   return (
-    <div className="relative">
-      <div className="pointer-events-none fixed inset-0 bg-grid-pattern bg-[size:3rem_3rem] opacity-30 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_60%,transparent_100%)]" />
-
+    <ChatProvider>
       <div className="relative">
-        <Navbar />
-        <main className="mx-auto max-w-6xl space-y-28 px-6 pb-28">
-          <Hero />
-          <Metrics />
-          <Capabilities />
-          <Projects />
-          <Research />
-          <Experience />
-          <Recommendations />
-          <AskAI />
-          <Connect />
-        </main>
-        <Footer />
+        <div className="pointer-events-none fixed inset-0 bg-grid-pattern bg-[size:3rem_3rem] opacity-30 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_60%,transparent_100%)]" />
+
+        <div className="relative">
+          <Navbar />
+          <main className="mx-auto max-w-6xl space-y-28 px-6 pb-28">
+            <Hero />
+            <Metrics />
+            <Capabilities />
+            <Projects />
+            <Research />
+            <Experience />
+            <Hobbies />
+            <Recommendations />
+            <AskAI />
+            <Connect />
+          </main>
+          <Footer />
+        </div>
+
+        <FloatingAI />
       </div>
-    </div>
+    </ChatProvider>
   );
 }

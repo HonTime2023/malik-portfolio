@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Clock } from "lucide-react";
-import { projects, type Project } from "@/config/siteData";
+import { projects, projectsNote, type Project } from "@/config/siteData";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { cn } from "@/lib/utils";
 
@@ -26,6 +26,10 @@ export function Projects() {
         title="Projects, grouped by the kind of problem they solve."
         description="Shipped systems and research builds — each with the stack, the reasoning, and where to see it work."
       />
+
+      <p className="rounded-lg border border-dashed border-brand-border bg-brand-surface/10 px-4 py-3 text-xs leading-relaxed text-brand-muted">
+        {projectsNote}
+      </p>
 
       <div className="flex flex-wrap gap-2">
         {categories.map((c) => (

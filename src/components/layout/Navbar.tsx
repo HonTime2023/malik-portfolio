@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { siteConfig } from "@/config/siteData";
 
@@ -9,7 +10,7 @@ const links = [
   { href: "#projects", label: "Projects" },
   { href: "#research", label: "Research" },
   { href: "#experience", label: "Experience" },
-  { href: "#ask-ai", label: "Ask My AI" },
+  { href: "#hobbies", label: "Beyond Work" },
   { href: "#connect", label: "Connect" },
 ];
 
@@ -31,20 +32,19 @@ export function Navbar() {
           : "border-transparent bg-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-        <a href="#top" className="flex items-center gap-2.5">
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-accent opacity-75" />
-            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-brand-accent" />
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <a href="#top" className="flex items-center gap-3">
+          <span className="relative h-8 w-8 shrink-0 overflow-hidden rounded-full border border-brand-accent/40">
+            <Image src="/images/headshot-1.jpg" alt={siteConfig.name} fill className="object-cover" />
           </span>
-          <span className="font-heading text-xs font-bold tracking-[0.2em] text-brand-text uppercase">
+          <span className="font-heading text-sm font-semibold tracking-tight text-brand-text">
             {siteConfig.shortName}
           </span>
         </a>
 
-        <div className="hidden items-center gap-7 text-xs font-medium tracking-wide text-brand-muted md:flex">
+        <div className="hidden items-center gap-6 text-sm text-brand-muted md:flex">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="uppercase transition-colors hover:text-brand-accent">
+            <a key={l.href} href={l.href} className="transition-colors hover:text-brand-accent">
               {l.label}
             </a>
           ))}
@@ -70,12 +70,7 @@ export function Navbar() {
         <div className="border-t border-brand-border bg-brand-bg px-6 pb-6 md:hidden">
           <div className="flex flex-col gap-4 pt-4 text-sm text-brand-muted">
             {links.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="uppercase tracking-wide hover:text-brand-accent"
-              >
+              <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="hover:text-brand-accent">
                 {l.label}
               </a>
             ))}
