@@ -1,10 +1,14 @@
 "use client";
 
+import { useRef } from "react";
 import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SortVisualizer } from "@/components/ui/algorithms/SortVisualizer";
 import { NeuralNetAnimation } from "@/components/ui/algorithms/NeuralNetAnimation";
 import { TSPAnimation } from "@/components/ui/algorithms/TSPAnimation";
+import { TimeSeriesAnimation } from "@/components/ui/algorithms/TimeSeriesAnimation";
+import { RAGAnimation } from "@/components/ui/algorithms/RAGAnimation";
 
 const items = [
   {
@@ -22,34 +26,71 @@ const items = [
     desc: "A real nearest-neighbour tour, redrawn on a fresh set of points every few seconds.",
     render: () => <TSPAnimation />,
   },
+  {
+    title: "Time Series Forecasting",
+    desc: "History drawn solid, forecast drawn dashed with a confidence band — regenerated on a loop.",
+    render: () => <TimeSeriesAnimation />,
+  },
+  {
+    title: "Retrieval-Augmented Generation",
+    desc: "Documents get searched, relevant context retrieved, then grounded into the final answer.",
+    render: () => <RAGAnimation />,
+  },
 ];
 
 export function Algorithms() {
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  function scroll(dir: 1 | -1) {
+    trackRef.current?.scrollBy({ left: dir * 320, behavior: "smooth" });
+  }
+
   return (
     <section id="algorithms" className="space-y-10">
       <SectionHeading
         eyebrow="How the Models Actually Work"
         title="The algorithms behind the projects, animated."
-        description="A growing gallery — graph embeddings, time series, reinforcement learning and RAG are coming next."
+        description="A growing gallery — graph embeddings and reinforcement learning are coming next."
       />
 
-      <div className="grid gap-5 md:grid-cols-3">
-        {items.map((item, idx) => (
-          <motion.div
-            key={item.title}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.4, delay: idx * 0.1 }}
-            className="space-y-3 rounded-2xl border border-brand-border bg-brand-surface/20 p-5"
-          >
-            {item.render()}
-            <div>
-              <h3 className="font-heading text-sm font-bold text-brand-text">{item.title}</h3>
-              <p className="mt-1 text-xs leading-relaxed text-brand-muted">{item.desc}</p>
-            </div>
-          </motion.div>
-        ))}
+      <div className="group/carousel relative">
+        <div
+          ref={trackRef}
+          className="flex snap-x snap-mandatory gap-5 overflow-x-auto px-1 pb-4 pt-1 scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {items.map((item, idx) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.4, delay: idx * 0.08 }}
+              whileHover={{ scale: 1.03, y: -6 }}
+              className="w-[300px] shrink-0 snap-start space-y-3 rounded-2xl border border-brand-border bg-brand-surface/20 p-5 hover:border-brand-accent/60 hover:shadow-[0_12px_30px_-8px_rgba(241,196,15,0.35)]"
+            >
+              {item.render()}
+              <div>
+                <h3 className="font-heading text-sm font-bold text-brand-text">{item.title}</h3>
+                <p className="mt-1 text-xs leading-relaxed text-brand-muted">{item.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <button
+          onClick={() => scroll(-1)}
+          aria-label="Scroll left"
+          className="absolute -left-3 top-1/2 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-brand-border bg-brand-bg text-brand-muted opacity-0 transition-opacity hover:text-brand-accent group-hover/carousel:opacity-100 sm:flex"
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </button>
+        <button
+          onClick={() => scroll(1)}
+          aria-label="Scroll right"
+          className="absolute -right-3 top-1/2 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-brand-border bg-brand-bg text-brand-muted opacity-0 transition-opacity hover:text-brand-accent group-hover/carousel:opacity-100 sm:flex"
+        >
+          <ChevronRight className="h-4 w-4" />
+        </button>
       </div>
     </section>
   );

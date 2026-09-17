@@ -50,12 +50,12 @@ export const capabilities = [
   {
     title: "Machine Learning Systems",
     desc: "Predictive modelling, classification, forecasting and decision-support engines trained on messy, real-world data.",
-    tech: ["Python", "Scikit-learn", "XGBoost", "LightGBM", "Pandas"],
+    tech: ["Python", "Scikit-learn", "XGBoost", "LightGBM", "Pandas", "Graph Embeddings", "Time Series"],
   },
   {
-    title: "GenAI & LLM Engineering",
-    desc: "Retrieval-augmented generation, agentic workflows and multimodal reasoning built on production-grade foundation models.",
-    tech: ["Anthropic Claude", "Gemini", "AWS Bedrock", "LangChain", "pgvector"],
+    title: "Agentic & GenAI Engineering",
+    desc: "Retrieval-augmented generation, tool-using agents and multimodal reasoning — including the harness and loop design that makes agents reliable, not just clever.",
+    tech: ["Anthropic Claude", "Gemini", "AWS Bedrock", "LangChain", "RAG", "MCP", "Agent Harness Engineering", "Loop Engineering"],
   },
   {
     title: "Cloud & MLOps",
@@ -73,9 +73,9 @@ export const capabilities = [
     tech: ["SPSS", "Stata", "Econometrics", "Geospatial Analysis"],
   },
   {
-    title: "Optimisation & Operations Research",
-    desc: "Combinatorial routing and assignment problems solved with constraint programming and geospatial reasoning at scale.",
-    tech: ["OR-Tools", "GeoPandas", "Mapbox", "Vehicle Routing"],
+    title: "Optimisation & Graph Engineering",
+    desc: "Combinatorial routing, assignment and sequential-decision problems solved with constraint programming, graph structures and reinforcement learning.",
+    tech: ["OR-Tools", "GeoPandas", "Mapbox", "Vehicle Routing", "Graph Engineering", "Reinforcement Learning"],
   },
 ];
 
@@ -86,72 +86,60 @@ export type ExperienceItem = {
   location: string;
   points: string[];
   current?: boolean;
+  transition?: boolean; // links this entry visually to the one before it (a promotion, not a new job)
 };
 
 export const experience: ExperienceItem[] = [
   {
-    period: "Mar 2025 — Present",
-    role: "Data Scientist / AI-ML Engineer",
+    period: "Feb 2026 — Present",
+    role: "AI / ML Engineer",
     org: "Wema Bank Plc — Data Analytics & AI Team",
     location: "Marina, Lagos, Nigeria",
     current: true,
-    points: [
-      "Architecting and productionising machine learning and GenAI solutions inside a Tier-1 Nigerian bank's digital banking ecosystem.",
-      "Operationalising model pipelines and analytics workflows that inform enterprise-wide decisions.",
-    ],
+    transition: true,
+    points: [],
+  },
+  {
+    period: "Mar 2025 — Jan 2026",
+    role: "Data Scientist",
+    org: "Wema Bank Plc — Data Analytics & AI Team",
+    location: "Marina, Lagos, Nigeria",
+    points: [],
   },
   {
     period: "May 2024 — Jan 2025",
     role: "Data Analyst",
     org: "Directorate of ICT, Olabisi Onabanjo University",
     location: "Ago Iwoye, Ogun, Nigeria",
-    points: [
-      "Ran end-to-end ETL on the university's student database across Excel, Microsoft Azure and a local MySQL server.",
-      "Analysed CBT examination scheduling, attendance and sessional payment data to surface institutional insights.",
-    ],
+    points: [],
   },
   {
     period: "Feb 2024 — Dec 2024",
     role: "Data Science Intern",
     org: "3MTT Nigeria — The Founding Network",
     location: "Osogbo, Osun, Nigeria",
-    points: [
-      "Built ESAAM, a LightGBM-powered app for predicting Multi-dimensional Poverty Index (MPI) and measuring the impact of tech training on poverty reduction.",
-      "Designed a custom web-scraping pipeline to gather fellow-level training data from a specialised public database.",
-      "Delivered logistic regression and preprocessing work on the Wisconsin Health and Titanic datasets.",
-    ],
+    points: [],
   },
   {
     period: "Jul 2024 — Aug 2024",
     role: "Data Analysis Intern",
     org: "HNG Internship 11",
     location: "Remote, Nigeria",
-    points: [
-      "Designed a dimensional model for sales analysis in a car-repair shop using SQL.",
-      "Modelled Nigerian productivity from key economic indicators, and predicted flood events from historical weather and sea data.",
-      "Applied geospatial analysis to detect rigging outliers in a Nigerian election dataset.",
-    ],
+    points: [],
   },
   {
     period: "Jul 2024 — Aug 2024",
     role: "Tax Analysis Intern",
     org: "KPMG US — Forage Tax Simulation",
     location: "Remote, US",
-    points: [
-      "Conducted research and produced tax recommendations using the IRAC approach for a client research memorandum.",
-      "Used Excel for data modelling and cleaning in support of tax analysis.",
-    ],
+    points: [],
   },
   {
     period: "Jul 2023 — Feb 2024",
     role: "Graduate Research Assistant",
     org: "Science & Technology Education Dept., Obafemi Awolowo University",
     location: "Ife, Osun, Nigeria",
-    points: [
-      "Handled and analysed real-time primary and secondary data — quantitative and qualitative — across multiple research projects.",
-      "Applied parametric and non-parametric statistical techniques to test hypotheses and produce publishable manuscripts.",
-      "Ran dimensionality reduction and regression on economic data linking banking systems to GDP, inflation and FX rates in Nigeria.",
-    ],
+    points: [],
   },
 ];
 
@@ -364,8 +352,10 @@ export type Community = {
 export const communities: Community[] = [
   { title: "Registered Data Scientist", issuer: "Data Science Nigeria (DSN/AIPlus/2025/44220)" },
   { title: "Registered Data Analyst", issuer: "Nigerian Society of Data Analysts & BI Experts (NSDABIE)" },
-  { title: "Kaggle Community Member", issuer: "Kaggle", url: "https://www.kaggle.com/bellomalik" },
-  { title: "Data Analytics & BI Tutor", issuer: "Baskenky", url: "https://www.babskenky.com/" },
+  { title: "Registered Teacher", issuer: "Teachers' Registration Council of Nigeria (TRCN; OS/R/07203)" },
+  { title: "Masakhane", issuer: "Grassroots African NLP research community", url: "https://github.com/masakhane-io/masakhane-community" },
+  { title: "ML Collective", issuer: "Open, global machine-learning research community", url: "https://mlcollective.org/" },
+  { title: "Deep Learning Indaba", issuer: "Africa's annual machine-learning & AI community gathering", url: "https://deeplearningindaba.com/" },
 ];
 
 export const kaggleBadges = [

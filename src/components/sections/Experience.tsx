@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Award, Download, GraduationCap, HandHeart, Users } from "lucide-react";
+import { ArrowUp, Award, Download, GraduationCap, HandHeart, Users } from "lucide-react";
 import {
   experience,
   education,
@@ -14,6 +14,7 @@ import {
 } from "@/config/siteData";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Carousel } from "@/components/ui/Carousel";
+import { cn } from "@/lib/utils";
 
 const educationItems: CarouselItem[] = education.map((e) => ({
   title: e.degree,
@@ -60,36 +61,48 @@ export function Experience() {
         </a>
       </div>
 
-      <div className="relative space-y-8 border-l border-brand-border pl-8">
-        {experience.map((item, idx) => (
-          <motion.div
-            key={item.role + item.period}
-            initial={{ opacity: 0, x: -12 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.4, delay: idx * 0.05 }}
-            className="relative"
-          >
-            <span
-              className={`absolute -left-[calc(2rem+5px)] top-1.5 h-2.5 w-2.5 rounded-full ${
-                item.current ? "bg-brand-accent" : "bg-brand-border"
-              }`}
-            />
-            <p className="font-mono text-xs uppercase tracking-wider text-brand-accent">{item.period}</p>
-            <h3 className="mt-1 font-heading text-lg font-bold">{item.role}</h3>
-            <p className="text-sm font-medium text-brand-text/80">
-              {item.org} · <span className="text-brand-muted">{item.location}</span>
-            </p>
-            <ul className="mt-3 space-y-1.5">
-              {item.points.map((pt) => (
-                <li key={pt} className="flex gap-2 text-sm leading-relaxed text-brand-muted">
-                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-brand-border" />
-                  {pt}
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        ))}
+      <div className="relative py-2">
+        <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-brand-accent/30 to-transparent md:block" />
+
+        <div className="space-y-6">
+          {experience.map((item, idx) => {
+            const fromRight = idx % 2 === 1;
+            return (
+              <motion.div
+                key={item.role + item.period}
+                initial={{ opacity: 0, x: fromRight ? 24 : -24 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.4, delay: idx * 0.06 }}
+                className={cn(
+                  "relative flex items-center gap-4 md:w-1/2",
+                  fromRight ? "md:ml-auto md:flex-row" : "md:flex-row-reverse md:text-right"
+                )}
+              >
+                <span
+                  className={cn(
+                    "hidden h-2 w-2 shrink-0 rounded-full md:block",
+                    item.current
+                      ? "bg-brand-accent shadow-[0_0_10px_3px_rgba(241,196,15,0.5)]"
+                      : "bg-brand-border"
+                  )}
+                />
+                <div className="w-full rounded-2xl border border-brand-border bg-brand-surface/20 px-5 py-3.5">
+                  {item.transition && (
+                    <span className={cn("mb-1 inline-flex items-center gap-1 text-[10px] font-semibold text-brand-accent", fromRight ? "" : "md:flex-row-reverse")}>
+                      <ArrowUp className="h-3 w-3" /> Promoted
+                    </span>
+                  )}
+                  <p className="font-mono text-[11px] uppercase tracking-wider text-brand-accent">{item.period}</p>
+                  <h3 className="mt-0.5 font-heading text-base font-bold">{item.role}</h3>
+                  <p className="text-xs text-brand-muted">
+                    {item.org} · {item.location}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
 
       <div className="space-y-3">
