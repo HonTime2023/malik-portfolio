@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { siteConfig } from "@/config/siteData";
 
 export const runtime = "nodejs";
@@ -33,7 +33,8 @@ function parseScholarHtml(html: string): ScholarPub[] {
     .slice(0, 5);
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const debug = req.nextUrl.searchParams.get("debug") === "1";
   const scholarId = siteConfig.googleScholarId;
   if (!scholarId) {
     return NextResponse.json(
@@ -54,15 +55,24 @@ export async function GET() {
       }
     );
     if (!res.ok) {
-      return NextResponse.json({ connected: false, items: [] });
+      return NextResponse.json({ connected: false, items: [], debugStatus: debug ? res.status : undefined });
     }
     const html = await res.text();
     const items = parseScholarHtml(html);
+    if (debug) {
+      return NextResponse.json({
+        connected: true,
+        items,
+        debugHtmlLength: html.length,
+        debugRowCount: (html.match(/gsc_a_tr/g) ?? []).length,
+        debugSnippet: html.slice(0, 800),
+      });
+    }
     return NextResponse.json(
       { connected: true, items },
       { headers: { "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=172800" } }
     );
-  } catch {
-    return NextResponse.json({ connected: false, items: [] });
+  } catch (err) {
+    return NextResponse.json({ connected: false, items: [], debugError: debug ? String(err) : undefined });
   }
 }
