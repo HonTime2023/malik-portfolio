@@ -60,12 +60,14 @@ export async function GET(req: NextRequest) {
     const html = await res.text();
     const items = parseScholarHtml(html);
     if (debug) {
+      const idx = html.indexOf("gsc_a_tr");
       return NextResponse.json({
         connected: true,
         items,
         debugHtmlLength: html.length,
         debugRowCount: (html.match(/gsc_a_tr/g) ?? []).length,
-        debugSnippet: html.slice(0, 800),
+        debugFirstIdx: idx,
+        debugAroundFirstRow: idx >= 0 ? html.slice(Math.max(0, idx - 50), idx + 400) : "not found",
       });
     }
     return NextResponse.json(
