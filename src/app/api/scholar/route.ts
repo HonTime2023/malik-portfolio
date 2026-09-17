@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { siteConfig } from "@/config/siteData";
 
 export const runtime = "nodejs";
@@ -33,8 +33,11 @@ function parseScholarHtml(html: string): ScholarPub[] {
     .slice(0, 5);
 }
 
-export async function GET(req: NextRequest) {
-  const debug = req.nextUrl.searchParams.get("debug") === "1";
+// Google Scholar has no official API and actively rate-limits/blocks repeat
+// requests from datacenter IPs (confirmed: got a live 403 during testing).
+// Fetching at most once a day — and letting Vercel's edge cache the response
+// for everyone in between — is what keeps this usable at all.
+export async function GET() {
   const scholarId = siteConfig.googleScholarId;
   if (!scholarId) {
     return NextResponse.json(
@@ -51,30 +54,23 @@ export async function GET(req: NextRequest) {
           "User-Agent":
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
         },
-        cache: "no-store",
+        next: { revalidate: 86400 },
       }
     );
     if (!res.ok) {
-      return NextResponse.json({ connected: false, items: [], debugStatus: debug ? res.status : undefined });
+      // Rate-limited or blocked — degrade gracefully rather than error.
+      return NextResponse.json(
+        { connected: false, items: [] },
+        { headers: { "Cache-Control": "public, s-maxage=1800" } } // retry sooner than a full day
+      );
     }
     const html = await res.text();
     const items = parseScholarHtml(html);
-    if (debug) {
-      const idx = html.indexOf("gsc_a_tr");
-      return NextResponse.json({
-        connected: true,
-        items,
-        debugHtmlLength: html.length,
-        debugRowCount: (html.match(/gsc_a_tr/g) ?? []).length,
-        debugFirstIdx: idx,
-        debugAroundFirstRow: idx >= 0 ? html.slice(Math.max(0, idx - 50), idx + 400) : "not found",
-      });
-    }
     return NextResponse.json(
       { connected: true, items },
       { headers: { "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=172800" } }
     );
-  } catch (err) {
-    return NextResponse.json({ connected: false, items: [], debugError: debug ? String(err) : undefined });
+  } catch {
+    return NextResponse.json({ connected: false, items: [] }, { headers: { "Cache-Control": "public, s-maxage=1800" } });
   }
 }
