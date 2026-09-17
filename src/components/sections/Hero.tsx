@@ -20,20 +20,10 @@ export function Hero() {
   return (
     <section id="top" className="relative grid gap-12 pt-16 pb-8 md:grid-cols-[1.15fr_0.85fr] md:pt-24">
       <div className="space-y-8">
-        <motion.p
-          initial="hidden"
-          animate="show"
-          custom={0}
-          variants={fadeUp}
-          className="font-heading text-lg font-semibold tracking-tight text-brand-text sm:text-xl"
-        >
-          {siteConfig.name}
-        </motion.p>
-
         <motion.div
           initial="hidden"
           animate="show"
-          custom={0.5}
+          custom={0}
           variants={fadeUp}
           className="inline-flex items-center gap-2 rounded-full border border-brand-border bg-brand-surface/40 px-3 py-1.5 text-xs text-brand-accent"
         >

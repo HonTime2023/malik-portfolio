@@ -53,6 +53,9 @@ export function NowPlaying() {
         )}
       </div>
       <div className="min-w-0 flex-1">
+        <p className="font-heading text-[11px] font-medium tracking-wide text-brand-muted">
+          What I&apos;m Listening to Right Now
+        </p>
         <div className="flex items-center gap-1.5">
           {isLive && (
             <span className="flex gap-0.5">
@@ -61,7 +64,7 @@ export function NowPlaying() {
               <span className="h-2 w-0.5 animate-pulse rounded-full bg-[#1DB954] [animation-delay:-0.15s]" />
             </span>
           )}
-          <p className="truncate text-xs font-semibold text-brand-text">{track}</p>
+          <p className="truncate text-xs font-medium text-brand-text">{track}</p>
         </div>
         <p className="truncate text-[11px] text-brand-muted">{artist}</p>
       </div>

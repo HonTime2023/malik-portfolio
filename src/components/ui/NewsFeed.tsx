@@ -5,7 +5,7 @@ import { Newspaper, ArrowUpRight } from "lucide-react";
 
 type NewsItem = { title: string; link: string; source: string; date: string };
 
-const REFRESH_MS = 5 * 60 * 1000;
+const REFRESH_MS = 45 * 1000; // rotate the shown headline every 45s so it's visibly alive
 
 export function NewsFeed() {
   const [items, setItems] = useState<NewsItem[] | null>(null);

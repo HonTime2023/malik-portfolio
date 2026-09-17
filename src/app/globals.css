@@ -80,6 +80,40 @@ body {
   animation: drip-fall 3.2s linear infinite;
 }
 
+@keyframes beam-flow {
+  0% {
+    top: -25%;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.animate-beam {
+  animation: beam-flow 3.4s ease-in-out infinite;
+}
+
+@keyframes spine-pulse {
+  0%, 100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-spine-pulse {
+  animation: spine-pulse 3.4s ease-in-out infinite;
+}
+
 @keyframes float-slow {
   0%, 100% {
     transform: translateY(0);
