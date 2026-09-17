@@ -62,10 +62,8 @@ export function Experience() {
         </a>
       </div>
 
-      <div className="relative py-2">
-        <GlowSpine />
-
-        <div className="space-y-6">
+        <div className="relative space-y-6">
+          <GlowSpine />
           {experience.map((item, idx) => {
             const fromRight = idx % 2 === 1;
             return (
@@ -104,7 +102,6 @@ export function Experience() {
             );
           })}
         </div>
-      </div>
 
       <div className="space-y-3">
         <h3 className="flex items-center gap-2 text-sm font-semibold text-brand-text/90">

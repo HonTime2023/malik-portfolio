@@ -7,10 +7,9 @@ import { GlowSpine } from "@/components/ui/GlowSpine";
 
 export function Metrics() {
   return (
-    <section className="relative py-4">
-      <GlowSpine />
-
-      <div className="space-y-10 md:space-y-6">
+    <section className="py-4">
+      <div className="relative space-y-10 md:space-y-6">
+        <GlowSpine />
         {metrics.map((m, idx) => {
           const fromRight = idx % 2 === 1;
           return (
