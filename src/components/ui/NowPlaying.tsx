@@ -32,8 +32,9 @@ export function NowPlaying() {
   }, []);
 
   const isLive = data?.connected && data.playing && data.track;
-  const track = isLive ? data!.track! : fallback.track;
-  const artist = isLive ? data!.artist! : fallback.artist;
+  const isIdle = data?.connected && !data.playing;
+  const track = isLive ? data!.track! : isIdle ? "Not playing right now" : fallback.track;
+  const artist = isLive ? data!.artist! : isIdle ? "Check back when the music's on" : fallback.artist;
   const url = isLive ? data!.spotifyUrl! : fallback.spotifyUrl;
   const art = isLive ? data?.albumArt : null;
 
