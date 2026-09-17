@@ -4,6 +4,7 @@ import { Hero } from "@/components/sections/Hero";
 import { Metrics } from "@/components/sections/Metrics";
 import { Capabilities } from "@/components/sections/Capabilities";
 import { Algorithms } from "@/components/sections/Algorithms";
+import { RouteOptimization } from "@/components/sections/RouteOptimization";
 import { Projects } from "@/components/sections/Projects";
 import { Research } from "@/components/sections/Research";
 import { Experience } from "@/components/sections/Experience";
@@ -27,6 +28,7 @@ export default function Home() {
             <Metrics />
             <Capabilities />
             <Algorithms />
+            <RouteOptimization />
             <Projects />
             <Research />
             <Experience />

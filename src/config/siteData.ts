@@ -3,6 +3,10 @@ export const siteConfig = {
   shortName: "Malik Pelumi Bello",
   aiName: "Time",
   cvUrl: "/files/Malik-Pelumi-Bello-CV.pdf",
+  // Set this once a Google Scholar profile exists (the part after "user=" in
+  // the profile URL) — the Research section will then auto-pull the top 5
+  // publications from it. Empty means "not set up yet."
+  googleScholarId: "",
   role: "AI / ML Engineer",
   company: "Wema Bank Plc",
   companyDetail: "Data Analytics & AI Team",

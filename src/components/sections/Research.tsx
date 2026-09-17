@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, BookOpen, Database, GitBranch, GraduationCap, Lightbulb, Mic2 } from "lucide-react";
 import { publications, teaching, siteConfig, researchInterests, domainFocus, datasets, openSourceContributions } from "@/config/siteData";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ScholarPublications } from "@/components/ui/ScholarPublications";
 
 export function Research() {
   return (
@@ -68,6 +69,8 @@ export function Research() {
               ResearchGate <ArrowUpRight className="h-3.5 w-3.5 text-brand-accent" />
             </a>
           </div>
+
+          <ScholarPublications />
         </div>
 
         <div className="rounded-2xl border border-brand-border bg-brand-surface/20 p-6">

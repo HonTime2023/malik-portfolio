@@ -138,3 +138,12 @@ body {
     transform: scale(1.03);
   }
 }
+
+/* Turns the free OpenStreetMap tiles into a dark map (no paid dark-tile API needed) */
+.map-tiles-dark {
+  filter: invert(1) hue-rotate(180deg) brightness(0.92) contrast(0.9) saturate(0.7);
+}
+
+.leaflet-container {
+  background: #04160e !important;
+}
