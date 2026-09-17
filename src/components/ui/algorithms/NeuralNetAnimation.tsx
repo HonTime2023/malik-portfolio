@@ -47,7 +47,7 @@ export function NeuralNetAnimation() {
           />
         ))}
         {edges.map((e, i) => (
-          <circle key={`pulse-${i}`} r={2.5} fill="var(--color-brand-accent)">
+          <circle key={`pulse-${i}`} cx={0} cy={0} r={2.5} fill="var(--color-brand-accent)">
             <animateMotion
               dur="2.4s"
               begin={`${e.delay}s`}

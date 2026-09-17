@@ -9,6 +9,11 @@ import { NeuralNetAnimation } from "@/components/ui/algorithms/NeuralNetAnimatio
 import { TSPAnimation } from "@/components/ui/algorithms/TSPAnimation";
 import { TimeSeriesAnimation } from "@/components/ui/algorithms/TimeSeriesAnimation";
 import { RAGAnimation } from "@/components/ui/algorithms/RAGAnimation";
+import { GraphEmbeddingAnimation } from "@/components/ui/algorithms/GraphEmbeddingAnimation";
+import { RLAnimation } from "@/components/ui/algorithms/RLAnimation";
+import { ASRAnimation } from "@/components/ui/algorithms/ASRAnimation";
+import { OCRAnimation } from "@/components/ui/algorithms/OCRAnimation";
+import { AgentLoopAnimation } from "@/components/ui/algorithms/AgentLoopAnimation";
 
 const items = [
   {
@@ -36,6 +41,31 @@ const items = [
     desc: "Documents get searched, relevant context retrieved, then grounded into the final answer.",
     render: () => <RAGAnimation />,
   },
+  {
+    title: "Graph Embeddings",
+    desc: "Connected nodes settle into clusters in embedding space — structure becomes geometry.",
+    render: () => <GraphEmbeddingAnimation />,
+  },
+  {
+    title: "Reinforcement Learning",
+    desc: "An agent explores a grid, step by step, chasing the reward — then resets and tries again.",
+    render: () => <RLAnimation />,
+  },
+  {
+    title: "Speech Recognition (ASR)",
+    desc: "The engine behind Maya — a live waveform transcribed into text in real time.",
+    render: () => <ASRAnimation />,
+  },
+  {
+    title: "Optical Character Recognition",
+    desc: "A scanning pass over a document, extracting text line by line.",
+    render: () => <OCRAnimation />,
+  },
+  {
+    title: "Agent Loops, Harnesses & MCP",
+    desc: "The perceive → plan → act → observe cycle that keeps a tool-using agent reliable.",
+    render: () => <AgentLoopAnimation />,
+  },
 ];
 
 export function Algorithms() {
@@ -50,7 +80,7 @@ export function Algorithms() {
       <SectionHeading
         eyebrow="How the Models Actually Work"
         title="The algorithms behind the projects, animated."
-        description="A growing gallery — graph embeddings and reinforcement learning are coming next."
+        description="Ten live, running visualisations of the techniques behind the projects above."
       />
 
       <div className="group/carousel relative">

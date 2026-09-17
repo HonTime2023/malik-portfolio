@@ -46,10 +46,11 @@ export async function POST(req: NextRequest) {
             parts: [{ text: `${SYSTEM_INSTRUCTION}\n\nCONTEXT ABOUT MALIK:\n${buildKnowledgeBase()}` }],
           },
           contents,
+          tools: [{ codeExecution: {} }],
           generationConfig: {
             temperature: 0.95,
             topP: 0.95,
-            maxOutputTokens: 1000,
+            maxOutputTokens: 2000,
             thinkingConfig: { thinkingBudget: 0 },
           },
         }),
@@ -64,11 +65,26 @@ export async function POST(req: NextRequest) {
     }
 
     const data = await res.json();
-    const text: string =
-      data?.candidates?.[0]?.content?.parts?.map((p: { text?: string }) => p.text ?? "").join("") ??
-      "I couldn't generate a response — try rephrasing, or reach Malik directly at belloayopelumi@gmail.com.";
+    const parts: Array<{ text?: string; inlineData?: { mimeType: string; data: string } }> =
+      data?.candidates?.[0]?.content?.parts ?? [];
 
-    return NextResponse.json({ reply: text });
+    if (parts.length === 0) {
+      return NextResponse.json({
+        reply: "I couldn't generate a response — try rephrasing, or reach Malik directly at belloayopelumi@gmail.com.",
+      });
+    }
+
+    // Turn any generated chart/image into an inline markdown image so the
+    // existing markdown renderer displays it right in the chat bubble.
+    const text = parts
+      .map((p) => {
+        if (p.text) return p.text;
+        if (p.inlineData) return `\n\n![chart](data:${p.inlineData.mimeType};base64,${p.inlineData.data})\n\n`;
+        return "";
+      })
+      .join("");
+
+    return NextResponse.json({ reply: text || "I couldn't generate a response — try rephrasing." });
   } catch {
     return NextResponse.json(
       { reply: "Something went wrong reaching the AI. You can always email belloayopelumi@gmail.com directly." },

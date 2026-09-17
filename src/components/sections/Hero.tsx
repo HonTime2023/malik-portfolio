@@ -120,8 +120,7 @@ export function Hero() {
             className="aspect-[4/5] w-full object-cover grayscale-[15%]"
           />
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-brand-bg via-brand-bg/40 to-transparent p-5">
-            <p className="font-heading text-sm font-bold text-brand-text">{siteConfig.name}</p>
-            <p className="text-xs text-brand-muted">{siteConfig.role} · {siteConfig.location}</p>
+            <p className="text-xs font-semibold text-brand-text">{siteConfig.role} · {siteConfig.location}</p>
           </div>
         </div>
 
