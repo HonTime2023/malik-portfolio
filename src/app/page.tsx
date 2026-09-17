@@ -4,12 +4,12 @@ import { Hero } from "@/components/sections/Hero";
 import { Metrics } from "@/components/sections/Metrics";
 import { Capabilities } from "@/components/sections/Capabilities";
 import { Algorithms } from "@/components/sections/Algorithms";
-import { RouteOptimization } from "@/components/sections/RouteOptimization";
 import { Projects } from "@/components/sections/Projects";
 import { Research } from "@/components/sections/Research";
 import { Experience } from "@/components/sections/Experience";
 import { Hobbies } from "@/components/sections/Hobbies";
 import { Recommendations } from "@/components/sections/Recommendations";
+import { Brain } from "@/components/sections/Brain";
 import { AskAI } from "@/components/sections/AskAI";
 import { Connect } from "@/components/sections/Connect";
 import { FloatingAI } from "@/components/ui/FloatingAI";
@@ -28,12 +28,12 @@ export default function Home() {
             <Metrics />
             <Capabilities />
             <Algorithms />
-            <RouteOptimization />
             <Projects />
             <Research />
             <Experience />
             <Hobbies />
             <Recommendations />
+            <Brain />
             <AskAI />
             <Connect />
           </main>

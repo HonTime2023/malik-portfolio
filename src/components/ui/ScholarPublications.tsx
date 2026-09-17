@@ -36,8 +36,8 @@ export function ScholarPublications() {
         <p className="mt-3 text-sm text-brand-muted">No publications found on the Scholar profile yet.</p>
       ) : (
         <ul className="mt-3 space-y-3">
-          {data.items.map((pub) => (
-            <li key={pub.link || pub.title}>
+          {data.items.map((pub, i) => (
+            <li key={pub.link || `${pub.title}-${i}`}>
               <a
                 href={pub.link || siteConfig.socials.orcid}
                 target="_blank"

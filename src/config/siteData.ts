@@ -6,7 +6,7 @@ export const siteConfig = {
   // Set this once a Google Scholar profile exists (the part after "user=" in
   // the profile URL) — the Research section will then auto-pull the top 5
   // publications from it. Empty means "not set up yet."
-  googleScholarId: "",
+  googleScholarId: "apurzZwAAAAJ",
   role: "AI / ML Engineer",
   company: "Wema Bank Plc",
   companyDetail: "Data Analytics & AI Team",
@@ -338,13 +338,21 @@ export type Certification = {
 };
 
 export const certifications: Certification[] = [
+  { title: "Accelerating End-to-End Data Science Workflows", issuer: "NVIDIA", date: "Jan 2026" },
+  { title: "Big Data Science and Big Data Analytics", issuer: "NVIDIA", date: "Jan 2026" },
   { title: "AI Engineer Nanodegree", issuer: "Udacity (AWS-backed)", date: "Nov 2025", url: "https://www.udacity.com/certificate/e/ace6e02-8152-11f0-9d43-3bcb633ee64b" },
   { title: "Certified Data Science Scholar (CDSS)", issuer: "International Institute of Independent Professionals & Scholars (IIIPS)", date: "Oct 2025" },
+  { title: "IDR Statistical Consulting Associate", issuer: "Dataville Research LLC", date: "Aug 2025" },
+  { title: "Machine Learning Pipelines with Azure ML Studio", issuer: "Microsoft, via Coursera", date: "Aug 2025", url: "https://www.coursera.org/account/accomplishments/verify/WC3CDB375QJ4" },
   { title: "Data Modeling in Power BI", issuer: "Microsoft, via Coursera", date: "Jul 2025", url: "https://coursera.org/verify/GFB3PL0Y8D3H" },
+  { title: "Foundations of Financial Engineering", issuer: "WorldQuant University", date: "Jul 2025" },
+  { title: "Microsoft Certified: Azure AI Fundamentals (AI-900)", issuer: "Microsoft", date: "Jul 2025", url: "https://learn.microsoft.com/en-us/users/malikpelumibello-5390/credentials/3336168a43eb651d" },
   { title: "Aspire Leaders Program", issuer: "Aspire Institute (Harvard-affiliated faculty)", date: "May 2025" },
-  { title: "Microsoft Certified: Azure AI Engineer Fundamentals (AI-900)", issuer: "Microsoft" },
+  { title: "Introductory Generative AI Engineering with AWS", issuer: "Udacity", date: "Jun 2025", url: "https://www.udacity.com/certificate/e/706403e8-3d47-11f0-9876-8754fb61bc61" },
+  { title: "ISO/IEC 27001 Information Security Associate", issuer: "SkillFront", date: "Mar 2025", url: "https://www.skillfront.com/Badges/26859328060599" },
+  { title: "English for IT 2", issuer: "Cisco Networking Academy", date: "Jun 2024" },
+  { title: "English for IT 1", issuer: "Cisco Networking Academy", date: "Jun 2024" },
   { title: "AWS Introduction to AI", issuer: "Amazon Web Services" },
-  { title: "Statistical Consulting", issuer: "Dataville — coursework in consulting practice, ethics, billing and statistical software packages" },
 ];
 
 export type Community = {
