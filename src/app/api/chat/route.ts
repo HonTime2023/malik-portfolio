@@ -92,6 +92,8 @@ export async function POST(req: NextRequest) {
     );
 
     if (!res.ok) {
+      const errBody = await res.text();
+      console.error("Gemini API error", res.status, errBody.slice(0, 1500));
       return NextResponse.json(
         { reply: "The AI hit a snag processing that. Try again, or email belloayopelumi@gmail.com directly." },
         { status: 200 }
