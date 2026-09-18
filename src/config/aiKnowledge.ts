@@ -7,6 +7,7 @@ import {
   skillGroups,
   education,
   certifications,
+  additionalCertifications,
   teaching,
   awards,
   volunteering,
@@ -38,7 +39,7 @@ export function buildKnowledgeBase(): string {
   const capText = capabilities.map((c) => `- ${c.title}: ${c.desc} Tools: ${c.tech.join(", ")}.`).join("\n");
   const skillText = skillGroups.map((g) => `- ${g.group}: ${g.skills.join(", ")}`).join("\n");
   const eduText = education.map((e) => `- ${e.degree}, ${e.org} (${e.period})`).join("\n");
-  const certText = certifications
+  const certText = [...certifications, ...additionalCertifications]
     .map((c) => `- ${c.title} — ${c.issuer}${c.date ? ` (${c.date})` : ""}`)
     .join("\n");
   const interestText = researchInterests.map((r) => `- ${r.title}: ${r.description}`).join("\n");

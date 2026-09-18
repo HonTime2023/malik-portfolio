@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight, BookOpen, ChevronLeft, ChevronRight, Film, Footprints, Mic2, Shield, Star, type LucideIcon } from "lucide-react";
 import type { CarouselIcon, CarouselItem } from "@/config/siteData";
+import { cn } from "@/lib/utils";
 
 const ICONS: Record<CarouselIcon, LucideIcon> = {
   film: Film,
@@ -36,9 +37,20 @@ export function Carousel({ items, icon: fallbackIcon }: { items: CarouselItem[];
               transition={{ type: "spring", stiffness: 300, damping: 18 }}
               className="flex h-full w-[220px] shrink-0 snap-start flex-col gap-4 rounded-2xl border border-brand-border bg-brand-surface/20 p-5 hover:border-brand-accent/60 hover:shadow-[0_12px_30px_-8px_rgba(241,196,15,0.35)]"
             >
-              <div className="relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden rounded-xl bg-brand-accent/10">
+              <div
+                className={cn(
+                  "relative flex w-full items-center justify-center overflow-hidden rounded-xl bg-brand-accent/10",
+                  item.imageFit === "contain" ? "aspect-[4/5] bg-white/95 p-6" : "aspect-[4/5]"
+                )}
+              >
                 {item.image ? (
-                  <Image src={item.image} alt={item.title} fill sizes="220px" className="object-cover" />
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    sizes="220px"
+                    className={item.imageFit === "contain" ? "object-contain p-2" : "object-cover"}
+                  />
                 ) : (
                   <Icon className="h-10 w-10 text-brand-accent" strokeWidth={1.5} />
                 )}

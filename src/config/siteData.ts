@@ -349,11 +349,26 @@ export const publications: Publication[] = [
   },
 ];
 
-export const education = [
+export type Education = {
+  period: string;
+  degree: string;
+  org: string;
+  url?: string;
+  logo?: string;
+};
+
+export const education: Education[] = [
   {
     period: "Jan 2025 — Jan 2027",
     degree: "M.Sc. Financial Engineering",
     org: "WorldQuant University",
+    logo: "/images/logos/worldquant.png",
+  },
+  {
+    period: "Nov 2025",
+    degree: "AI Engineer Nanodegree",
+    org: "Udacity (AWS-backed)",
+    url: "https://www.udacity.com/certificate/e/ace6e02-8152-11f0-9d43-3bcb633ee64b",
   },
   {
     period: "Feb 2024 — May 2025",
@@ -364,6 +379,7 @@ export const education = [
     period: "2023",
     degree: "B.Sc. Ed, Biology — First Class Honours (CGPA 4.83/5.0)",
     org: "Obafemi Awolowo University · Best Graduating Student, Faculty of Education",
+    logo: "/images/logos/oau.png",
   },
 ];
 
@@ -384,38 +400,46 @@ export type Certification = {
   issuer: string;
   date?: string;
   url?: string;
+  logo?: string;
 };
 
+// The curated set shown publicly on the site. Verification links are only
+// included where a real, confirmed URL exists — never guessed.
 export const certifications: Certification[] = [
-  { title: "Accelerating End-to-End Data Science Workflows", issuer: "NVIDIA", date: "Jan 2026" },
+  { title: "Accelerating End-to-End Data Science Workflows", issuer: "NVIDIA", date: "Jan 2026", logo: "/images/logos/nvidia.png" },
   { title: "Certified Data Science Professional (CDSP)", issuer: "International Institute of Independent Professionals & Scholars (IIIPS)", date: "Oct 2025" },
-  { title: "Career Essentials in GitHub Professional Certificate", issuer: "GitHub", date: "Aug 2025" },
+  { title: "Career Essentials in GitHub Professional Certificate", issuer: "GitHub", date: "Aug 2025", logo: "/images/logos/github.png" },
   { title: "IDR Statistical Consulting Associate", issuer: "Dataville Research LLC", date: "Aug 2025" },
+  { title: "Microsoft Certified: Azure AI Fundamentals (AI-900)", issuer: "Microsoft", date: "Jul 2025", url: "https://learn.microsoft.com/en-us/users/malikpelumibello-5390/credentials/3336168a43eb651d", logo: "/images/logos/microsoft.png" },
+  { title: "Machine Learning Pipelines with Azure ML Studio", issuer: "Microsoft, via Coursera", date: "Aug 2025", url: "https://www.coursera.org/account/accomplishments/verify/WC3CDB375QJ4", logo: "/images/logos/microsoft.png" },
+  { title: "Foundations of Financial Engineering", issuer: "WorldQuant University", date: "Jul 2025", logo: "/images/logos/worldquant.png" },
+  { title: "Data Modeling in Power BI", issuer: "Microsoft, via Coursera", date: "Jul 2025", url: "https://coursera.org/verify/GFB3PL0Y8D3H", logo: "/images/logos/microsoft.png" },
+  { title: "Aspire Leaders Program", issuer: "Aspire Institute (Harvard-affiliated faculty)", date: "May 2025" },
+  { title: "ISO/IEC 27001 Information Security Associate", issuer: "SkillFront", date: "Mar 2025", url: "https://www.skillfront.com/Badges/26859328060599" },
+  { title: "Data Science & Analytics", issuer: "HP LIFE", date: "Dec 2024", logo: "/images/logos/hp.png" },
+  { title: "English for IT 1", issuer: "Cisco Networking Academy", date: "Jun 2024", logo: "/images/logos/cisco.png" },
+  { title: "English for IT 2", issuer: "Cisco Networking Academy", date: "Jun 2024", logo: "/images/logos/cisco.png" },
+];
+
+// Every other real certification — not shown on the page, but still part of
+// Time's grounding so it can answer specific questions about any of them.
+export const additionalCertifications: Certification[] = [
   { title: "Microsoft Azure AI Essentials Professional Certificate", issuer: "Microsoft & LinkedIn", date: "Aug 2025" },
-  { title: "Machine Learning Pipelines with Azure ML Studio", issuer: "Microsoft, via Coursera", date: "Aug 2025", url: "https://www.coursera.org/account/accomplishments/verify/WC3CDB375QJ4" },
   { title: "Data Analyst", issuer: "Tech4Dev", date: "Jun 2025" },
   { title: "Programming Foundations: Version Control with Git", issuer: "LinkedIn Learning", date: "Aug 2025" },
   { title: "Git from Scratch", issuer: "LinkedIn Learning", date: "Aug 2025" },
-  { title: "Foundations of Financial Engineering", issuer: "WorldQuant University", date: "Jul 2025" },
-  { title: "Data Modeling in Power BI", issuer: "Microsoft, via Coursera", date: "Jul 2025", url: "https://coursera.org/verify/GFB3PL0Y8D3H" },
-  { title: "Microsoft Certified: Azure AI Fundamentals (AI-900)", issuer: "Microsoft", date: "Jul 2025", url: "https://learn.microsoft.com/en-us/users/malikpelumibello-5390/credentials/3336168a43eb651d" },
   { title: "EF SET English Certificate — 69/100 (C1 Advanced)", issuer: "EF SET", date: "Jul 2025" },
   { title: "Women, Business and the Law", issuer: "The World Bank Group", date: "Jul 2025" },
   { title: "AWS Machine Learning Foundations", issuer: "AWS Educate", date: "Jun 2025" },
   { title: "Introductory Generative AI Engineering with AWS", issuer: "Udacity", date: "Jun 2025", url: "https://www.udacity.com/certificate/e/706403e8-3d47-11f0-9876-8754fb61bc61" },
-  { title: "Aspire Leaders Program", issuer: "Aspire Institute (Harvard-affiliated faculty)", date: "May 2025" },
-  { title: "ISO/IEC 27001 Information Security Associate", issuer: "SkillFront", date: "Mar 2025", url: "https://www.skillfront.com/Badges/26859328060599" },
   { title: "Introduction to Behavioral Science in Public Policy", issuer: "The World Bank Group", date: "Feb 2025" },
-  { title: "Data Science & Analytics", issuer: "HP LIFE", date: "Dec 2024" },
   { title: "KPMG U.S. — Career Catalyst: Tax Job Simulation", issuer: "Forage", date: "Aug 2024" },
   { title: "Career Essentials in Data Analysis", issuer: "Microsoft & LinkedIn", date: "Aug 2024" },
   { title: "Introduction to Career Skills in Data Analytics", issuer: "LinkedIn Learning", date: "Jul 2024" },
   { title: "AI Career Essentials (AiCE)", issuer: "ALX Africa", date: "Jul 2024" },
   { title: "Teamwork Foundations", issuer: "LinkedIn Learning", date: "Jun 2024" },
-  { title: "English for IT 2", issuer: "Cisco Networking Academy", date: "Jun 2024" },
   { title: "Career Essentials in Generative AI", issuer: "Microsoft & LinkedIn", date: "Jun 2024" },
   { title: "Build Your Generative AI Productivity Skills", issuer: "Microsoft & LinkedIn", date: "Jun 2024" },
-  { title: "English for IT 1", issuer: "Cisco Networking Academy", date: "Jun 2024" },
   { title: "Professional Soft Skills Learning Pathway", issuer: "LinkedIn Learning", date: "Jun 2024" },
   { title: "Fundamentals of Digital Marketing", issuer: "United Latino Students Association", date: "May 2024" },
   { title: "Effective Listening", issuer: "LinkedIn Learning", date: "Apr 2024" },
@@ -481,6 +505,7 @@ export type VolunteeringItem = {
   org: string;
   points: string[];
   image?: string;
+  imageFit?: "cover" | "contain";
 };
 
 export const volunteering: VolunteeringItem[] = [
@@ -492,6 +517,8 @@ export const volunteering: VolunteeringItem[] = [
       "Built an assessment framework for scholars' graduation criteria and mentor performance.",
       "Led a full organisational capacity analysis using USAID's assessment guide.",
     ],
+    image: "/images/havek.png",
+    imageFit: "contain",
   },
   {
     period: "May 2024 — Present",
@@ -502,6 +529,8 @@ export const volunteering: VolunteeringItem[] = [
       "Led a team comparing Logistic Regression, SVM and XGBoost on health datasets.",
       "Coordinated data gathering across private secondary schools for the CIAY sensitisation programme.",
     ],
+    image: "/images/instride.jpg",
+    imageFit: "contain",
   },
   {
     period: "Oct 2024 — Present",
@@ -575,6 +604,7 @@ export type CarouselItem = {
   title: string;
   subtitle?: string;
   image?: string;
+  imageFit?: "cover" | "contain";
   icon?: CarouselIcon;
   url?: string;
 };

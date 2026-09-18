@@ -21,6 +21,9 @@ const educationItems: CarouselItem[] = education.map((e) => ({
   title: e.degree,
   subtitle: `${e.org} · ${e.period}`,
   icon: "book",
+  image: e.logo,
+  imageFit: "contain",
+  url: e.url,
 }));
 
 const certificationItems: CarouselItem[] = certifications.map((c) => ({
@@ -28,6 +31,8 @@ const certificationItems: CarouselItem[] = certifications.map((c) => ({
   subtitle: `${c.issuer}${c.date ? ` · ${c.date}` : ""}`,
   icon: "star",
   url: c.url,
+  image: c.logo,
+  imageFit: "contain",
 }));
 
 const communityItems: CarouselItem[] = communities.map((c) => ({
@@ -42,6 +47,7 @@ const volunteeringItems: CarouselItem[] = volunteering.map((v) => ({
   subtitle: `${v.org} · ${v.period}`,
   icon: "footprints",
   image: v.image,
+  imageFit: v.imageFit,
 }));
 
 export function Experience() {
