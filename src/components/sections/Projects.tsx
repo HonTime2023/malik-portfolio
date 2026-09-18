@@ -6,6 +6,28 @@ import { ArrowUpRight, Clock } from "lucide-react";
 import { projects, projectsNote, type Project } from "@/config/siteData";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { cn } from "@/lib/utils";
+import { AIDERAnimation } from "@/components/ui/projects/AIDERAnimation";
+import { RAGFlowAnimation } from "@/components/ui/projects/RAGFlowAnimation";
+import { VoiceWaveAnimation } from "@/components/ui/projects/VoiceWaveAnimation";
+import { SensitivityAnimation } from "@/components/ui/projects/SensitivityAnimation";
+import { RouteAnimation } from "@/components/ui/projects/RouteAnimation";
+import { DemandBarsAnimation } from "@/components/ui/projects/DemandBarsAnimation";
+import { FloodRiskAnimation } from "@/components/ui/projects/FloodRiskAnimation";
+import { ScrapePipelineAnimation } from "@/components/ui/projects/ScrapePipelineAnimation";
+
+// Each project gets its own small, running visualisation — same idea as the
+// Algorithms section, but illustrating what that specific project does.
+function projectAnimation(name: string) {
+  if (name.includes("AIDER")) return <AIDERAnimation />;
+  if (name.includes("Bedrock RAG")) return <RAGFlowAnimation />;
+  if (name.includes("Maya")) return <VoiceWaveAnimation />;
+  if (name.includes("ESAAM")) return <SensitivityAnimation />;
+  if (name.includes("Vehicle Routing")) return <RouteAnimation />;
+  if (name.includes("Taxi")) return <DemandBarsAnimation />;
+  if (name.includes("Nepal Climate")) return <FloodRiskAnimation />;
+  if (name.includes("Scraper")) return <ScrapePipelineAnimation />;
+  return null;
+}
 
 const categories: Array<Project["category"] | "All"> = [
   "All",
@@ -88,7 +110,9 @@ function CascadeCard({
         <h3 className="mt-1 font-heading text-lg font-bold leading-snug">{project.name}</h3>
       </div>
 
-      <p className="line-clamp-4 text-sm leading-relaxed text-brand-muted">{project.description}</p>
+      {projectAnimation(project.name)}
+
+      <p className="line-clamp-3 text-sm leading-relaxed text-brand-muted">{project.description}</p>
 
       <div className="flex flex-wrap gap-2">
         {project.stack.slice(0, 5).map((t) => (
@@ -131,6 +155,8 @@ function ProjectDetail({ p }: { p: Project }) {
         </span>
         <h3 className="mt-1 font-heading text-lg font-bold leading-snug">{p.name}</h3>
       </div>
+
+      {projectAnimation(p.name)}
 
       <p className="text-sm leading-relaxed text-brand-muted">{p.description}</p>
 

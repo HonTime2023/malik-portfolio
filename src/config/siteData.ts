@@ -48,6 +48,57 @@ export const metrics = [
   { label: "Core Domain", value: "Fintech · Public Sector · Research" },
 ];
 
+// Full skill taxonomy as endorsed/listed on LinkedIn — grouped the way LinkedIn
+// itself groups them. This is the exhaustive list; `capabilities` above stays
+// the curated, headline version.
+export const skillGroups: { group: string; skills: string[] }[] = [
+  {
+    group: "Industry Knowledge",
+    skills: [
+      "AI Engineering", "Applied Machine Learning", "Machine Learning", "Artificial Intelligence (AI)",
+      "Generative AI", "Natural Language Processing (NLP)", "Retrieval-Augmented Generation (RAG)",
+      "Big Data Analytics", "Big Data Science", "Data Science", "Data Analytics", "Data Analysis",
+      "Data Mining", "Data Modeling", "Data Visualization", "Data Warehousing", "Statistics",
+      "Statistical Data Analysis", "Analytical Skills", "Business Intelligence (BI)",
+      "Business Systems Analysis", "Data Ethics", "Statistical Consulting", "Research Skills",
+      "Qualitative Research", "Research Design", "Policy Analysis", "Public Policy",
+      "Behavioural Science", "Gender Equality", "Gender Analysis", "Auditing", "Tax Research",
+      "Tax Law Research", "Digital Marketing", "Digital Marketing Innovations",
+      "Digital Marketing Communications", "Digital Marketing Media", "Digital Marketing Analytics",
+      "Search Engine Optimization (SEO)", "Marketing", "Sales & Marketing", "Entrepreneurship",
+      "Artificial Intelligence for Business",
+    ],
+  },
+  {
+    group: "Tools & Technologies",
+    skills: [
+      "Git", "GitHub", "Version Control", "Microsoft Azure", "Azure AI Foundry", "Azure AI Studio",
+      "Oracle Database", "Microsoft Copilot", "Microsoft PowerPoint", "Prompt Engineering",
+      "Generative AI Tools", "Search Engine Technology", "Mathematics", "Propositional Logic",
+    ],
+  },
+  {
+    group: "Communication & Leadership",
+    skills: [
+      "Cross-functional Team Leadership", "Team Leadership", "Teamwork", "Communication",
+      "Interpersonal Communication", "Technical Writing", "Creative Writing", "Web Content Writing",
+      "Report Writing", "Scriptwriting", "Editing", "Writing", "Teaching", "Training",
+      "Persuasion", "Plain Language", "Critical Thinking", "Decision-Making",
+      "Creativity and Innovation", "Active Listening", "Soft Skills", "Emotional Intelligence",
+      "Resiliency", "Building Trust", "Change Management", "Change Readiness",
+      "Unconscious Bias Awareness Training", "Computer Ethics", "Media Ethics", "Business Acumen",
+    ],
+  },
+  {
+    group: "Other Skills",
+    skills: [
+      "Artificial Intelligence for Design", "Productivity Improvement", "Tech Career Skills", "Sales",
+      "Business Planning", "Capital Raising", "Small Business Financial Management",
+      "Small Business Management", "Small Business Marketing",
+    ],
+  },
+];
+
 export const capabilities = [
   {
     title: "Machine Learning Systems",

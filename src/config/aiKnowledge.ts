@@ -4,6 +4,7 @@ import {
   projects,
   publications,
   capabilities,
+  skillGroups,
   education,
   certifications,
   teaching,
@@ -35,6 +36,7 @@ export function buildKnowledgeBase(): string {
     .join("\n");
 
   const capText = capabilities.map((c) => `- ${c.title}: ${c.desc} Tools: ${c.tech.join(", ")}.`).join("\n");
+  const skillText = skillGroups.map((g) => `- ${g.group}: ${g.skills.join(", ")}`).join("\n");
   const eduText = education.map((e) => `- ${e.degree}, ${e.org} (${e.period})`).join("\n");
   const certText = certifications
     .map((c) => `- ${c.title} — ${c.issuer}${c.date ? ` (${c.date})` : ""}`)
@@ -82,6 +84,9 @@ ${teaching.role} at ${teaching.org} (${teaching.url}) — ${teaching.desc}
 
 CORE CAPABILITIES
 ${capText}
+
+FULL SKILL LIST (as endorsed on LinkedIn — more granular than the capabilities above; use these for specific "do you know X" questions)
+${skillText}
 
 RESEARCH INTERESTS
 ${interestText}
