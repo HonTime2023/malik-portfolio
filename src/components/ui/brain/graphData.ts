@@ -3,6 +3,7 @@ import {
   experience,
   projects,
   capabilities,
+  skillGroups,
   researchInterests,
   publications,
   education,
@@ -100,6 +101,17 @@ export function buildGraphData(): { nodes: GraphNode[]; links: GraphLink[] } {
     nodes.push({ id, label: c.title, group: "leaf", category: "Skills", detail: c.tech.join(", "), val: 5 });
     links.push({ source: "cat-Skills", target: id });
     linkTags(id, "Skills", c.tech);
+  });
+
+  // The full LinkedIn skill taxonomy — every individual skill becomes its own
+  // tag node, grouped under a hub per LinkedIn category. Shared names (e.g. a
+  // skill that's also a project's stack tag) collapse onto the same node,
+  // which is exactly what pulls the whole graph denser and more interlinked.
+  skillGroups.forEach((g, i) => {
+    const id = `skillgroup-${i}`;
+    nodes.push({ id, label: g.group, group: "leaf", category: "Skills", detail: `${g.skills.length} skills`, val: 4 });
+    links.push({ source: "cat-Skills", target: id });
+    linkTags(id, "Skills", g.skills);
   });
 
   [...hobbies.movies.slice(0, 4), ...hobbies.relax, ...hobbies.books.slice(0, 4)].forEach((h, i) => {

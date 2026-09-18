@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Brain, Cloud, Database, LineChart, Route, Sparkles } from "lucide-react";
-import { capabilities, skillGroups } from "@/config/siteData";
+import { capabilities } from "@/config/siteData";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 const icons = [Brain, Sparkles, Cloud, Database, LineChart, Route];
@@ -45,29 +45,6 @@ export function Capabilities() {
             </motion.div>
           );
         })}
-      </div>
-
-      <div className="space-y-6 border-t border-brand-border pt-10">
-        <h3 className="font-heading text-sm font-bold uppercase tracking-wider text-brand-accent">
-          Full Skill List
-        </h3>
-        <div className="space-y-5">
-          {skillGroups.map((g) => (
-            <div key={g.group}>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-brand-muted">{g.group}</p>
-              <div className="flex flex-wrap gap-2">
-                {g.skills.map((s) => (
-                  <span
-                    key={s}
-                    className="rounded-full border border-brand-border bg-brand-bg-soft px-3 py-1 text-[11px] text-brand-text/80"
-                  >
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
