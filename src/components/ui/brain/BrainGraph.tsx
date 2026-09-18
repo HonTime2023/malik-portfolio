@@ -23,7 +23,13 @@ export function BrainGraph() {
   }, []);
 
   useEffect(() => {
-    fgRef.current?.d3Force("charge")?.strength(-90);
+    fgRef.current?.d3Force("charge")?.strength(-24);
+    fgRef.current?.d3Force("link")?.distance((l: { source: unknown; target: unknown }) => {
+      const s = l.source as GraphNode;
+      const t = l.target as GraphNode;
+      if (s?.group === "tag" || t?.group === "tag") return 14;
+      return 32;
+    });
   }, []);
 
   return (
@@ -41,10 +47,18 @@ export function BrainGraph() {
             const node = n as GraphNode;
             if (node.group === "root") return "#f1c40f";
             if (node.group === "category") return categoryColor(node.category);
+            if (node.group === "tag") return "#d9c27a";
             return categoryColor(node.category) + "cc";
           }}
-          linkColor={() => "rgba(241, 196, 15, 0.25)"}
-          linkWidth={0.6}
+          linkColor={(l) => {
+            const link = l as unknown as { source: GraphNode; target: GraphNode };
+            const involvesTag = link.source?.group === "tag" || link.target?.group === "tag";
+            return involvesTag ? "rgba(217, 194, 122, 0.18)" : "rgba(241, 196, 15, 0.3)";
+          }}
+          linkWidth={0.5}
+          linkCurvature={0.22}
+          cooldownTime={4000}
+          onEngineStop={() => fgRef.current?.zoomToFit(400, 24)}
           onNodeClick={(n) => setSelected(n as GraphNode)}
           onNodeHover={(n) => {
             if (containerRef.current) containerRef.current.style.cursor = n ? "pointer" : "default";
@@ -53,19 +67,26 @@ export function BrainGraph() {
             const node = n as GraphNode & { x?: number; y?: number };
             const x = node.x ?? 0;
             const y = node.y ?? 0;
-            const r = node.group === "root" ? 10 : node.group === "category" ? 6 : 3.2;
+            const r =
+              node.group === "root" ? 10 : node.group === "category" ? 6 : node.group === "tag" ? Math.max(1.6, node.val * 0.55) : 3.2;
             const color =
-              node.group === "root" ? "#f1c40f" : node.group === "category" ? categoryColor(node.category) : categoryColor(node.category);
+              node.group === "root"
+                ? "#f1c40f"
+                : node.group === "category"
+                ? categoryColor(node.category)
+                : node.group === "tag"
+                ? "#d9c27a"
+                : categoryColor(node.category);
 
             ctx.beginPath();
             ctx.arc(x, y, r, 0, 2 * Math.PI);
             ctx.fillStyle = color;
             ctx.shadowColor = color;
-            ctx.shadowBlur = node.group === "root" ? 14 : node.group === "category" ? 8 : 3;
+            ctx.shadowBlur = node.group === "root" ? 14 : node.group === "category" ? 8 : node.group === "tag" ? 2 : 3;
             ctx.fill();
             ctx.shadowBlur = 0;
 
-            if (node.group !== "leaf" || globalScale > 2.2) {
+            if (node.group === "root" || node.group === "category" || globalScale > 2.6) {
               ctx.font = `${node.group === "root" ? "bold " : ""}${Math.max(9, 11 / globalScale)}px Inter, sans-serif`;
               ctx.textAlign = "center";
               ctx.textBaseline = "top";

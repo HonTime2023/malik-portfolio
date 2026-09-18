@@ -13,7 +13,7 @@ import {
 export type GraphNode = {
   id: string;
   label: string;
-  group: "root" | "category" | "leaf";
+  group: "root" | "category" | "leaf" | "tag";
   category: string;
   detail?: string;
   val: number;
@@ -36,17 +36,40 @@ export function categoryColor(category: string) {
   return CATEGORY_COLORS[category] ?? "#f1c40f";
 }
 
+// Normalizes a free-text tag ("Python", "python", "PYTHON ") into one stable node id
+// so the same skill mentioned across a project, a capability and a cert all collapse
+// onto a single shared hub node instead of duplicating.
+function tagId(tag: string) {
+  return `tag-${tag.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+}
+
 export function buildGraphData(): { nodes: GraphNode[]; links: GraphLink[] } {
   const nodes: GraphNode[] = [
     { id: "root", label: siteConfig.shortName, group: "root", category: "root", val: 22 },
   ];
   const links: GraphLink[] = [];
+  const tagNodes = new Map<string, GraphNode>();
 
   const categories = ["Experience", "Projects", "Research", "Skills", "Hobbies", "Education", "Philosophy", "Volunteering"];
   categories.forEach((cat) => {
     nodes.push({ id: `cat-${cat}`, label: cat, group: "category", category: cat, val: 10 });
     links.push({ source: "root", target: `cat-${cat}` });
   });
+
+  // Every distinct tool/skill/topic mentioned anywhere becomes its own shared node.
+  // Linking entities through these shared tags (instead of only to their parent
+  // category) is what turns the graph from a clean spoke-tree into a dense,
+  // organically clustered network — the same tag pulls in projects, experience
+  // and skills at once, exactly like real knowledge overlaps.
+  function linkTags(entityId: string, category: string, tags: string[]) {
+    tags.forEach((raw) => {
+      const id = tagId(raw);
+      if (!tagNodes.has(id)) {
+        tagNodes.set(id, { id, label: raw, group: "tag", category, val: 2 });
+      }
+      links.push({ source: entityId, target: id });
+    });
+  }
 
   experience.slice(0, 6).forEach((e, i) => {
     const id = `exp-${i}`;
@@ -58,6 +81,7 @@ export function buildGraphData(): { nodes: GraphNode[]; links: GraphLink[] } {
     const id = `proj-${i}`;
     nodes.push({ id, label: p.name.split("—")[0].trim(), group: "leaf", category: "Projects", detail: p.category, val: 5 });
     links.push({ source: "cat-Projects", target: id });
+    linkTags(id, "Projects", p.stack);
   });
 
   researchInterests.forEach((r, i) => {
@@ -75,6 +99,7 @@ export function buildGraphData(): { nodes: GraphNode[]; links: GraphLink[] } {
     const id = `skill-${i}`;
     nodes.push({ id, label: c.title, group: "leaf", category: "Skills", detail: c.tech.join(", "), val: 5 });
     links.push({ source: "cat-Skills", target: id });
+    linkTags(id, "Skills", c.tech);
   });
 
   [...hobbies.movies.slice(0, 4), ...hobbies.relax, ...hobbies.books.slice(0, 4)].forEach((h, i) => {
@@ -99,6 +124,19 @@ export function buildGraphData(): { nodes: GraphNode[]; links: GraphLink[] } {
     const id = `vol-${i}`;
     nodes.push({ id, label: v.role, group: "leaf", category: "Volunteering", detail: v.org, val: 3 });
     links.push({ source: "cat-Volunteering", target: id });
+  });
+
+  nodes.push(...tagNodes.values());
+
+  // Size every node by how many things actually connect to it — shared hubs
+  // like "Python" naturally grow bigger, exactly like a real dense network graph.
+  const degree = new Map<string, number>();
+  links.forEach((l) => {
+    degree.set(l.source, (degree.get(l.source) ?? 0) + 1);
+    degree.set(l.target, (degree.get(l.target) ?? 0) + 1);
+  });
+  nodes.forEach((n) => {
+    if (n.group === "tag") n.val = 2 + Math.min(8, (degree.get(n.id) ?? 1) * 1.4);
   });
 
   return { nodes, links };

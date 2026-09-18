@@ -33,7 +33,7 @@ export function FloatingAI() {
             <div className="flex items-center justify-between border-b border-brand-border bg-brand-surface/30 px-4 py-3">
               <span className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-brand-muted">
                 <Sparkles className="h-3.5 w-3.5 text-brand-accent" />
-                Ask {siteConfig.aiName}
+                {siteConfig.aiName} · part of my brain
               </span>
               <button onClick={() => setOpen(false)} aria-label="Close chat" className="text-brand-muted hover:text-brand-text">
                 <X className="h-4 w-4" />
@@ -85,7 +85,7 @@ export function FloatingAI() {
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask anything…"
+                placeholder="Ask me anything…"
                 className="flex-1 bg-transparent text-xs text-brand-text placeholder:text-brand-muted focus:outline-none"
               />
               <button

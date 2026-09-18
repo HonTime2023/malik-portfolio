@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Malik Pelumi Bello",
   shortName: "Malik Pelumi Bello",
   aiName: "Time",
-  resumeUrl: "/files/Malik-Pelumi-Bello-Resume.docx",
+  resumeUrl: "/files/Malik-Pelumi-Bello-Resume.pdf",
   // Set this once a Google Scholar profile exists (the part after "user=" in
   // the profile URL) — the Research section will then auto-pull the top 5
   // publications from it. Empty means "not set up yet."

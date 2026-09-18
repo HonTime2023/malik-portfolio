@@ -10,10 +10,10 @@ import { siteConfig } from "@/config/siteData";
 import { cn } from "@/lib/utils";
 
 const suggestions = [
-  "What is Malik's tech stack?",
+  "What's your tech stack?",
   "Tell me about AIDER.",
-  "How do I reach Malik?",
-  "What does he research?",
+  "How do I reach you?",
+  "What do you research?",
 ];
 
 export function AskAI() {
@@ -30,15 +30,15 @@ export function AskAI() {
     <section id="ask-ai" className="space-y-8">
       <SectionHeading
         eyebrow="Query the Brain"
-        title={`Ask ${siteConfig.aiName} about me.`}
-        description="A small language model, grounded only in what's on this page — my work, my thinking, and how to reach me. Find it again anytime via the floating icon."
+        title={`Talk to ${siteConfig.aiName}.`}
+        description={`${siteConfig.aiName} is trained on a slice of my brain — my work, my thinking, my way of answering — and replies as me, in first person. It's not the full me, honestly probably not even 10% of me, but it tries hard with what it's got. Find it again anytime via the floating icon.`}
       />
 
       <div className="rounded-2xl border border-brand-border bg-brand-surface/20">
         <div className="flex items-center gap-2 border-b border-brand-border px-5 py-3.5">
           <Sparkles className="h-4 w-4 text-brand-accent" />
           <span className="font-mono text-xs uppercase tracking-wider text-brand-muted">
-            {siteConfig.aiName.toLowerCase()} · grounded assistant
+            {siteConfig.aiName.toLowerCase()} · a partial replica of me, doing its best
           </span>
         </div>
 
@@ -104,7 +104,7 @@ export function AskAI() {
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask about his projects, stack, research, or how to reach him…"
+            placeholder="Ask about my projects, stack, research, or how to reach me…"
             className="flex-1 bg-transparent text-sm text-brand-text placeholder:text-brand-muted focus:outline-none"
           />
           <button

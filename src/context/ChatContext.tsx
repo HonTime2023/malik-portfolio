@@ -15,7 +15,7 @@ const ChatContext = createContext<ChatContextValue | null>(null);
 
 const WELCOME: ChatMessage = {
   role: "assistant",
-  content: `Hi — I'm ${siteConfig.aiName}, trained on Malik's portfolio, projects and research. Ask me anything about his work, how he thinks, or how to reach him.`,
+  content: `Hey — I'm ${siteConfig.aiName}, a replica of part of Malik's brain: his work, his projects, his way of thinking, rebuilt to talk to. I don't know everything he does — honestly, probably not even 10% of it — but I answer as him, first person, doing my best with what I've got. Ask me anything.`,
 };
 
 export function ChatProvider({ children }: { children: React.ReactNode }) {
