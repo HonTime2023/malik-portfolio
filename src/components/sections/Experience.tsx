@@ -41,6 +41,7 @@ const volunteeringItems: CarouselItem[] = volunteering.map((v) => ({
   title: v.role,
   subtitle: `${v.org} · ${v.period}`,
   icon: "footprints",
+  image: v.image,
 }));
 
 export function Experience() {
@@ -53,12 +54,12 @@ export function Experience() {
           description="From biology first-class honours to fintech AI — a path built on statistics, research rigor and production engineering."
         />
         <a
-          href={siteConfig.cvUrl}
+          href={siteConfig.resumeUrl}
           download
           className="inline-flex shrink-0 items-center gap-2 rounded-md border border-brand-accent px-4 py-2 text-xs font-bold text-brand-accent hover:bg-brand-accent hover:text-brand-bg"
         >
           <Download className="h-3.5 w-3.5" />
-          Download Full CV
+          Download Resume
         </a>
       </div>
 

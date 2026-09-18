@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Malik Pelumi Bello",
   shortName: "Malik Pelumi Bello",
   aiName: "Time",
-  cvUrl: "/files/Malik-Pelumi-Bello-CV.pdf",
+  resumeUrl: "/files/Malik-Pelumi-Bello-Resume.docx",
   // Set this once a Google Scholar profile exists (the part after "user=" in
   // the profile URL) — the Research section will then auto-pull the top 5
   // publications from it. Empty means "not set up yet."
@@ -393,6 +393,7 @@ export type VolunteeringItem = {
   role: string;
   org: string;
   points: string[];
+  image?: string;
 };
 
 export const volunteering: VolunteeringItem[] = [
@@ -428,6 +429,7 @@ export const volunteering: VolunteeringItem[] = [
     role: "Data Analysis Tutor",
     org: "The Ireti Foundation",
     points: ["Teaching data analysis fundamentals as part of the foundation's digital literacy programme."],
+    image: "/images/ireti-foundation.jpg",
   },
 ];
 
