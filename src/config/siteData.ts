@@ -371,6 +371,7 @@ export const communities: Community[] = [
 ];
 
 export const kaggleBadges = [
+  "Bronze Medal — Notebook: AIDER",
   "Completed 5-Day Gen AI Intensive (Kaggle × Google)",
   "Python Coder",
   "Kaggle Community Member",
@@ -423,6 +424,7 @@ export const volunteering: VolunteeringItem[] = [
     points: [
       "Planning committee member and keynote speaker for \"Pad-Up-A-Girl\" — reached 1,000+ students across two schools with sanitary pads and menstrual health education.",
     ],
+    image: "/images/humanity-first.png",
   },
   {
     period: "Present",
