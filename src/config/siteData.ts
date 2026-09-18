@@ -601,11 +601,11 @@ export const hobbies = {
     { title: "Writing Poems", subtitle: "Putting thoughts to page", icon: "book" },
   ] as CarouselItem[],
   books: [
-    { title: "Ikigai", subtitle: "Héctor García & Francesc Miralles" },
-    { title: "Atomic Habits", subtitle: "James Clear" },
-    { title: "Discipline Is Destiny", subtitle: "Ryan Holiday" },
-    { title: "Zero to One", subtitle: "Peter Thiel" },
-    { title: "The Hundred-Page Machine Learning Book", subtitle: "Andriy Burkov" },
-    { title: "Deep Learning", subtitle: "Goodfellow, Bengio & Courville" },
+    { title: "Ikigai", subtitle: "Héctor García & Francesc Miralles", image: "/images/books/ikigai.jpg" },
+    { title: "Atomic Habits", subtitle: "James Clear", image: "/images/books/atomic-habits.jpg" },
+    { title: "Discipline Is Destiny", subtitle: "Ryan Holiday", image: "/images/books/discipline-is-destiny.jpg" },
+    { title: "Zero to One", subtitle: "Peter Thiel", image: "/images/books/zero-to-one.jpg" },
+    { title: "The Hundred-Page Machine Learning Book", subtitle: "Andriy Burkov", image: "/images/books/hundred-page-ml.jpg" },
+    { title: "Deep Learning", subtitle: "Goodfellow, Bengio & Courville", image: "/images/books/deep-learning.jpg" },
   ] as CarouselItem[],
 };
