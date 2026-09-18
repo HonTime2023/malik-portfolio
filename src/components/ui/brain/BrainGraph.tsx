@@ -34,13 +34,13 @@ export function BrainGraph() {
 
   return (
     <div className="grid gap-4 lg:grid-cols-[1fr_260px]">
-      <div ref={containerRef} className="h-[520px] overflow-hidden rounded-2xl border border-brand-border bg-brand-bg-soft">
+      <div ref={containerRef} className="bg-abstract-mesh h-[520px] overflow-hidden rounded-2xl border border-brand-border">
         <ForceGraph2D
           ref={fgRef}
           graphData={data as never}
           width={dims.width}
           height={dims.height}
-          backgroundColor="#062617"
+          backgroundColor="rgba(0,0,0,0)"
           nodeVal={(n) => (n as GraphNode).val}
           nodeLabel={(n) => (n as GraphNode).label}
           nodeColor={(n) => {

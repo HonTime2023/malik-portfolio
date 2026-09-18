@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { siteConfig } from "@/config/siteData";
+import { LetsTalkModal } from "@/components/ui/LetsTalkModal";
 
 const links = [
   { href: "#capabilities", label: "Capabilities" },
@@ -17,6 +18,7 @@ const links = [
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [talkOpen, setTalkOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -50,12 +52,12 @@ export function Navbar() {
           ))}
         </div>
 
-        <a
-          href={`mailto:${siteConfig.email}`}
+        <button
+          onClick={() => setTalkOpen(true)}
           className="hidden rounded-full border border-brand-accent px-4 py-2 text-xs font-bold text-brand-accent transition-all hover:bg-brand-accent hover:text-brand-bg md:inline-block"
         >
           Let&apos;s Talk
-        </a>
+        </button>
 
         <button
           className="text-brand-text md:hidden"
@@ -74,15 +76,20 @@ export function Navbar() {
                 {l.label}
               </a>
             ))}
-            <a
-              href={`mailto:${siteConfig.email}`}
+            <button
+              onClick={() => {
+                setOpen(false);
+                setTalkOpen(true);
+              }}
               className="mt-2 w-fit rounded-full border border-brand-accent px-4 py-2 text-xs font-bold text-brand-accent"
             >
               Let&apos;s Talk
-            </a>
+            </button>
           </div>
         </div>
       )}
+
+      <LetsTalkModal open={talkOpen} onClose={() => setTalkOpen(false)} />
     </nav>
   );
 }

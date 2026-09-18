@@ -88,7 +88,7 @@ function CascadeCard({
         position: "absolute",
         top: "50%",
         left: "50%",
-        marginTop: -280,
+        marginTop: -310,
         marginLeft: -240,
         y,
         z,
@@ -99,7 +99,7 @@ function CascadeCard({
         transformStyle: "preserve-3d",
       }}
       className={cn(
-        "flex h-[560px] w-[480px] max-w-[88vw] flex-col gap-3 overflow-hidden rounded-3xl border p-7 shadow-2xl shadow-black/50",
+        "flex h-155 w-[480px] max-w-[88vw] flex-col gap-3 overflow-hidden rounded-3xl border p-7 shadow-2xl shadow-black/50",
         project.featured ? "border-brand-accent/40 bg-[#0c2116]" : "border-brand-border bg-[#0a1c13]"
       )}
     >
@@ -112,7 +112,7 @@ function CascadeCard({
 
       {projectAnimation(project.name)}
 
-      <p className="line-clamp-3 text-sm leading-relaxed text-brand-muted">{project.description}</p>
+      <p className="text-sm leading-relaxed text-brand-muted">{project.description}</p>
 
       <div className="flex flex-wrap gap-2">
         {project.stack.slice(0, 5).map((t) => (
@@ -218,7 +218,7 @@ function ProjectCascade({ filtered }: { filtered: Project[] }) {
 
   return (
     <div ref={containerRef} style={{ height: `${Math.max(1, total) * 78}vh` }} className="relative">
-      <div className="sticky top-20 h-[min(72vh,650px)] overflow-hidden rounded-3xl border border-brand-border bg-brand-bg-soft">
+      <div className="bg-abstract-mesh sticky top-20 h-[min(78vh,700px)] overflow-hidden rounded-3xl border border-brand-border">
         <div className="grid h-full items-center gap-6 px-6 lg:grid-cols-[1fr_120px] lg:px-10">
           <div style={{ perspective: 1500, perspectiveOrigin: "50% 40%" }} className="relative h-full">
             {filtered.map((p, idx) => (
