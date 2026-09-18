@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, useMotionValueEvent, type MotionValue } from "framer-motion";
 import { ArrowUpRight, Clock } from "lucide-react";
 import { projects, projectsNote, type Project } from "@/config/siteData";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -14,6 +14,113 @@ const categories: Array<Project["category"] | "All"> = [
   "Analytics",
   "Research",
 ];
+
+// Reverse-engineered from launchfar.com's "Your mentor evolves around you" card
+// deck: each card's pose is a smooth function of its distance (offset) from the
+// currently-active card. Cards still waiting ease in from behind (exponential,
+// ratio ~0.45 per step, matching what launchfar actually ships), while a card
+// that has already had its turn keeps swinging forward/down and flips past
+// vertical until the sticky stage's overflow clips it out of view.
+function cascadeStyle(offset: number) {
+  if (offset >= 0) {
+    const k = Math.pow(0.45, offset);
+    return {
+      y: -190 + 235 * k,
+      z: -230 + 245 * k,
+      rotateX: -56 + 48 * k,
+      scale: 0.84 + 0.16 * k,
+      opacity: Math.max(0, 1 - Math.max(0, offset - 2) / 2),
+    };
+  }
+  return {
+    y: -190 - 360 * offset,
+    z: -230 - 150 * offset,
+    rotateX: -56 - 82 * offset,
+    scale: 1 + 0.06 * Math.min(-offset, 1.3),
+    opacity: 1,
+  };
+}
+
+function CascadeCard({
+  project,
+  index,
+  total,
+  activeFloat,
+}: {
+  project: Project;
+  index: number;
+  total: number;
+  activeFloat: MotionValue<number>;
+}) {
+  const offset = useTransform(activeFloat, (v) => index - v);
+  const y = useTransform(offset, (o) => cascadeStyle(o).y);
+  const z = useTransform(offset, (o) => cascadeStyle(o).z);
+  const rotateX = useTransform(offset, (o) => cascadeStyle(o).rotateX);
+  const scale = useTransform(offset, (o) => cascadeStyle(o).scale);
+  const opacity = useTransform(offset, (o) => cascadeStyle(o).opacity);
+  const zIndex = useTransform(offset, (o) => Math.round(1000 - o * 10));
+
+  return (
+    <motion.article
+      style={{
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        marginTop: -280,
+        marginLeft: -240,
+        y,
+        z,
+        rotateX,
+        scale,
+        opacity,
+        zIndex,
+        transformStyle: "preserve-3d",
+      }}
+      className={cn(
+        "flex h-[560px] w-[480px] max-w-[88vw] flex-col gap-3 overflow-hidden rounded-3xl border p-7 shadow-2xl shadow-black/50",
+        project.featured ? "border-brand-accent/40 bg-[#0c2116]" : "border-brand-border bg-[#0a1c13]"
+      )}
+    >
+      <div>
+        <span className="font-mono text-[11px] uppercase tracking-wider text-brand-accent">
+          {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")} · {project.category}
+        </span>
+        <h3 className="mt-1 font-heading text-lg font-bold leading-snug">{project.name}</h3>
+      </div>
+
+      <p className="line-clamp-4 text-sm leading-relaxed text-brand-muted">{project.description}</p>
+
+      <div className="flex flex-wrap gap-2">
+        {project.stack.slice(0, 5).map((t) => (
+          <span key={t} className="rounded border border-brand-border bg-brand-bg-soft px-2.5 py-1 text-[11px] text-brand-muted">
+            {t}
+          </span>
+        ))}
+      </div>
+
+      <div className="mt-auto flex flex-wrap items-center gap-4 pt-2">
+        {project.status && (
+          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-brand-accent">
+            <Clock className="h-3.5 w-3.5" />
+            {project.status}
+          </span>
+        )}
+        {project.links.map((l) => (
+          <a
+            key={l.url}
+            href={l.url}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1 text-xs font-semibold text-brand-text hover:text-brand-accent"
+          >
+            {l.label}
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </a>
+        ))}
+      </div>
+    </motion.article>
+  );
+}
 
 function ProjectDetail({ p }: { p: Project }) {
   return (
@@ -59,33 +166,72 @@ function ProjectDetail({ p }: { p: Project }) {
   );
 }
 
+function ProjectCascade({ filtered }: { filtered: Project[] }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [activeIdx, setActiveIdx] = useState(0);
+  const total = filtered.length;
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+  const activeFloat = useTransform(scrollYProgress, [0, 1], [0, Math.max(0, total - 1)]);
+
+  useMotionValueEvent(activeFloat, "change", (v) => {
+    const idx = Math.min(total - 1, Math.max(0, Math.round(v)));
+    setActiveIdx(idx);
+  });
+
+  function jumpTo(idx: number) {
+    const el = containerRef.current;
+    if (!el || total <= 1) return;
+    const rect = el.getBoundingClientRect();
+    const targetY = window.scrollY + rect.top + (idx / (total - 1)) * (rect.height - window.innerHeight);
+    window.scrollTo({ top: targetY, behavior: "smooth" });
+  }
+
+  return (
+    <div ref={containerRef} style={{ height: `${Math.max(1, total) * 78}vh` }} className="relative">
+      <div className="sticky top-20 h-[min(72vh,650px)] overflow-hidden rounded-3xl border border-brand-border bg-brand-bg-soft">
+        <div className="grid h-full items-center gap-6 px-6 lg:grid-cols-[1fr_120px] lg:px-10">
+          <div style={{ perspective: 1500, perspectiveOrigin: "50% 40%" }} className="relative h-full">
+            {filtered.map((p, idx) => (
+              <CascadeCard key={p.name} project={p} index={idx} total={total} activeFloat={activeFloat} />
+            ))}
+          </div>
+
+          <div className="hidden flex-col items-center gap-4 lg:flex">
+            <div className="text-center font-heading text-2xl font-bold text-brand-text">
+              {String(activeIdx + 1).padStart(2, "0")}
+              <span className="block font-mono text-[10px] font-normal text-brand-muted">/ {String(total).padStart(2, "0")}</span>
+            </div>
+            <div className="flex flex-col gap-2">
+              {filtered.map((p, idx) => (
+                <button
+                  key={p.name}
+                  onClick={() => jumpTo(idx)}
+                  aria-label={`Show project ${idx + 1}: ${p.name}`}
+                  className={cn(
+                    "flex h-8 w-8 items-center justify-center rounded-full border font-mono text-[10px] transition-all",
+                    idx === activeIdx
+                      ? "border-brand-accent bg-brand-accent text-brand-bg shadow-[0_0_14px_rgba(241,196,15,0.4)]"
+                      : "border-brand-border text-brand-muted hover:border-brand-accent/60 hover:text-brand-text"
+                  )}
+                >
+                  {String(idx + 1).padStart(2, "0")}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function Projects() {
   const [active, setActive] = useState<(typeof categories)[number]>("All");
   const filtered = active === "All" ? projects : projects.filter((p) => p.category === active);
-  const [activeIdx, setActiveIdx] = useState(0);
-  const blockRefs = useRef<(HTMLDivElement | null)[]>([]);
-  blockRefs.current = [];
-
-  useEffect(() => {
-    setActiveIdx(0);
-  }, [active]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const idx = Number((entry.target as HTMLElement).dataset.idx);
-            setActiveIdx(idx);
-          }
-        });
-      },
-      { rootMargin: "-40% 0px -40% 0px", threshold: 0 }
-    );
-    blockRefs.current.forEach((el) => el && observer.observe(el));
-    return () => observer.disconnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filtered.length, active]);
 
   return (
     <section id="projects" className="space-y-10">
@@ -116,50 +262,13 @@ export function Projects() {
         ))}
       </div>
 
-      {/* Desktop: cards pinned on the left, detail scrolls on the right — same pattern as launchfar's step-through sections */}
-      <div className="hidden lg:grid lg:grid-cols-[300px_1fr] lg:items-start lg:gap-8">
-        <div className="sticky top-28 space-y-2">
-          {filtered.map((p, idx) => (
-            <button
-              key={p.name}
-              onClick={() =>
-                blockRefs.current[idx]?.scrollIntoView({ behavior: "smooth", block: "center" })
-              }
-              className={cn(
-                "block w-full rounded-xl border px-4 py-3 text-left transition-all duration-300",
-                idx === activeIdx
-                  ? "border-brand-accent bg-brand-accent/[0.07] opacity-100"
-                  : "border-brand-border bg-transparent opacity-40 hover:opacity-70"
-              )}
-            >
-              <span className="font-mono text-[10px] text-brand-accent">{String(idx + 1).padStart(2, "0")}</span>
-              <h4 className="mt-0.5 font-heading text-sm font-bold leading-snug">{p.name}</h4>
-              <p className="mt-0.5 text-[11px] text-brand-muted">{p.category}</p>
-            </button>
-          ))}
-        </div>
-
-        <div className="space-y-16">
-          {filtered.map((p, idx) => (
-            <div
-              key={p.name}
-              ref={(el) => {
-                blockRefs.current[idx] = el;
-              }}
-              data-idx={idx}
-              className={cn(
-                "flex min-h-[42vh] flex-col justify-center gap-4 rounded-2xl border p-8 transition-colors duration-300",
-                p.featured ? "border-brand-accent/40 bg-brand-accent/[0.06]" : "border-brand-border bg-brand-surface/20"
-              )}
-            >
-              <ProjectDetail p={p} />
-            </div>
-          ))}
-        </div>
+      {/* Desktop/tablet: the launchfar-style scroll-driven 3D card cascade */}
+      <div className="hidden md:block">
+        <ProjectCascade key={active} filtered={filtered} />
       </div>
 
-      {/* Mobile/tablet: plain stacked grid */}
-      <div className="grid gap-5 lg:hidden md:grid-cols-2">
+      {/* Mobile: plain stacked grid — the perspective cascade isn't usable at that size */}
+      <div className="grid gap-5 md:hidden">
         {filtered.map((p, idx) => (
           <motion.article
             key={p.name}

@@ -68,6 +68,12 @@ PRESS
 VOLUNTEERING & LEADERSHIP
 ${volunteering.map((v) => `- [${v.period}] ${v.role}, ${v.org}: ${v.points.join(" ")}`).join("\n")}
 
+EARLIER STUDENT LEADERSHIP HISTORY (real, but not shown publicly on the site — share if asked, don't volunteer unprompted)
+- [Mar 2022 — Apr 2023] Honourable Member, Select Committee, Students' Representative Council, Great Ife Students' Union (OAU): interviewed and screened students into union committees, weighting qualitative interview data to select members who went on to deliver landmark wins for the union.
+- [Jun 2023 — Jul 2023] Chairman, Audit Committee, Science and Technology Students' Association (STESA): audited departmental accounts and recovered misappropriated funds, resolved a presidency-congress conflict peacefully, and proposed new spending-monitoring controls; the committee was recognised as one of the department's best-ever audit committees.
+- [May 2019 — Mar 2020] Director of Academics, Faculty of Education Muslim Students' Association (OAU Chapter): coordinated academic activities for Muslim students across the faculty and introduced a new departmental-coaching approach based on student feedback.
+- [Nov 2021 — Dec 2021] Student Principal, Coalition of Student Teachers, Adventist Secondary School, Ife: coordinated activities between student-teachers, supervising teachers and school authority during teaching practice; recognised as leader of the best student-teacher set the school had produced to that point.
+
 WORK EXPERIENCE (most recent first)
 ${expText}
 
@@ -107,6 +113,7 @@ Kaggle: ${siteConfig.socials.kaggle}
 Medium (blog): ${siteConfig.socials.medium}
 ResearchGate: ${siteConfig.socials.researchgate}
 ORCID: ${siteConfig.socials.orcid}
+Google Scholar: ${siteConfig.socials.scholar}
 YouTube: ${siteConfig.socials.youtube}
 Email: ${siteConfig.email}
 Résumé (downloadable from this site): ${siteConfig.resumeUrl}

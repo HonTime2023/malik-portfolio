@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, BookOpen, Database, GitBranch, GraduationCap, Lightbulb, Mic2 } from "lucide-react";
 import { publications, teaching, siteConfig, researchInterests, domainFocus, datasets, openSourceContributions } from "@/config/siteData";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ScholarPublications } from "@/components/ui/ScholarPublications";
 
 export function Research() {
   return (
@@ -53,6 +52,14 @@ export function Research() {
 
           <div className="flex flex-wrap gap-3 pt-2">
             <a
+              href={siteConfig.socials.scholar}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-full border border-brand-border px-4 py-2 text-xs font-semibold text-brand-text hover:border-brand-accent"
+            >
+              Google Scholar <ArrowUpRight className="h-3.5 w-3.5 text-brand-accent" />
+            </a>
+            <a
               href={siteConfig.socials.orcid}
               target="_blank"
               rel="noreferrer"
@@ -69,8 +76,6 @@ export function Research() {
               ResearchGate <ArrowUpRight className="h-3.5 w-3.5 text-brand-accent" />
             </a>
           </div>
-
-          <ScholarPublications />
         </div>
 
         <div className="rounded-2xl border border-brand-border bg-brand-surface/20 p-6">

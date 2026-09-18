@@ -3,10 +3,6 @@ export const siteConfig = {
   shortName: "Malik Pelumi Bello",
   aiName: "Time",
   resumeUrl: "/files/Malik-Pelumi-Bello-Resume.pdf",
-  // Set this once a Google Scholar profile exists (the part after "user=" in
-  // the profile URL) — the Research section will then auto-pull the top 5
-  // publications from it. Empty means "not set up yet."
-  googleScholarId: "apurzZwAAAAJ",
   role: "AI / ML Engineer",
   company: "Wema Bank Plc",
   companyDetail: "Data Analytics & AI Team",
@@ -28,6 +24,7 @@ export const siteConfig = {
     medium: "https://medium.com/@belloayopelumi",
     researchgate: "https://www.researchgate.net/profile/Malik-Bello",
     orcid: "https://orcid.org/0009-0004-0906-2731",
+    scholar: "https://scholar.google.com/citations?user=apurzZwAAAAJ&hl=en",
     youtube: "https://www.youtube.com/@BelloMalik-Data",
     linktree: "https://linktr.ee/bellomalik",
     babskenky: "https://www.babskenky.com/",
@@ -470,39 +467,6 @@ export const volunteering: VolunteeringItem[] = [
     org: "The Ireti Foundation",
     points: ["Teaching data analysis fundamentals as part of the foundation's digital literacy programme."],
     image: "/images/ireti-foundation.jpg",
-  },
-  {
-    period: "Mar 2022 — Apr 2023",
-    role: "Honourable Member, Select Committee",
-    org: "Students' Representative Council, Great Ife Students' Union",
-    points: [
-      "Interviewed and screened students into union committees, weighting qualitative interview data to select members who went on to deliver landmark wins for the union.",
-    ],
-  },
-  {
-    period: "Jun 2023 — Jul 2023",
-    role: "Chairman, Audit Committee",
-    org: "Science and Technology Students' Association (STESA)",
-    points: [
-      "Audited departmental accounts and recovered misappropriated funds.",
-      "Resolved a presidency–congress conflict peacefully and proposed new controls for monitoring association spending; the committee was recognised as one of the department's best-ever audit committees.",
-    ],
-  },
-  {
-    period: "May 2019 — Mar 2020",
-    role: "Director of Academics",
-    org: "Faculty of Education Muslim Students' Association (OAU Chapter)",
-    points: [
-      "Coordinated academic activities for Muslim students across the faculty and introduced a new departmental-coaching approach based on student feedback.",
-    ],
-  },
-  {
-    period: "Nov 2021 — Dec 2021",
-    role: "Student Principal",
-    org: "Coalition of Student Teachers, Adventist Secondary School, Ife",
-    points: [
-      "Coordinated activities between student-teachers, supervising teachers and school authority during teaching practice; recognised as leader of the best student-teacher set the school had produced to that point.",
-    ],
   },
 ];
 

@@ -16,6 +16,7 @@ const socialLinks = [
 const otherLinks = [
   { label: "Kaggle", href: siteConfig.socials.kaggle },
   { label: "Medium (Blog)", href: siteConfig.socials.medium },
+  { label: "Google Scholar", href: siteConfig.socials.scholar },
   { label: "ResearchGate", href: siteConfig.socials.researchgate },
   { label: "ORCID", href: siteConfig.socials.orcid },
   { label: "All Links (Linktree)", href: siteConfig.socials.linktree },
