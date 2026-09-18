@@ -18,6 +18,9 @@ const WELCOME: ChatMessage = {
   content: `Hey — I'm ${siteConfig.aiName}, a replica of part of Malik's brain: his work, his projects, his way of thinking, rebuilt to talk to. I don't know everything he does — honestly, probably not even 10% of it — but I answer as him, first person, doing my best with what I've got. Ask me anything.`,
 };
 
+const QUESTION_LIMIT = 10;
+const LIMIT_REPLY = `That's a good, deep conversation — but I'll cap myself here so Malik can pick this up properly himself. Email him directly at **${siteConfig.email}**, or use the "Let's Talk" button, and mention what we covered.`;
+
 export function ChatProvider({ children }: { children: React.ReactNode }) {
   const [messages, setMessages] = useState<ChatMessage[]>([WELCOME]);
   const [loading, setLoading] = useState(false);
@@ -27,6 +30,11 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   async function send(text: string) {
     const content = text.trim();
     if (!content || loading) return null;
+    const askedSoFar = messagesRef.current.filter((m) => m.role === "user").length;
+    if (askedSoFar >= QUESTION_LIMIT) {
+      setMessages((m) => [...m, { role: "user", content }, { role: "assistant", content: LIMIT_REPLY }]);
+      return LIMIT_REPLY;
+    }
     const next = [...messagesRef.current, { role: "user" as const, content }];
     setMessages(next);
     setLoading(true);

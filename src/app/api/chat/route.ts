@@ -1,11 +1,45 @@
 import { NextRequest, NextResponse } from "next/server";
 import { buildKnowledgeBase, SYSTEM_INSTRUCTION } from "@/config/aiKnowledge";
+import { siteConfig } from "@/config/siteData";
 
 export const runtime = "nodejs";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
+// In-memory sliding-window limiter, keyed by IP. Resets whenever the serverless
+// instance recycles — not as strong as a shared store (Redis/KV), but adds a
+// real cost-control layer against direct API abuse with zero extra infra.
+// The 10-questions-per-session cap the visible chat UI enforces is the primary
+// defense; this is the defense-in-depth backstop for anyone bypassing the UI.
+const RATE_LIMIT = 20;
+const WINDOW_MS = 60 * 60 * 1000; // 1 hour
+const hits = new Map<string, number[]>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const timestamps = (hits.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
+  timestamps.push(now);
+  hits.set(ip, timestamps);
+  if (hits.size > 5000) {
+    // Cheap cleanup so the map can't grow unbounded across a long-lived instance.
+    for (const [key, ts] of hits) {
+      if (ts.every((t) => now - t >= WINDOW_MS)) hits.delete(key);
+    }
+  }
+  return timestamps.length > RATE_LIMIT;
+}
+
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || req.headers.get("x-real-ip") || "unknown";
+  if (isRateLimited(ip)) {
+    return NextResponse.json(
+      {
+        reply: `I've answered a lot of questions this hour — let's take this to email so Malik can dig in properly. Reach him at **${siteConfig.email}**, or use the "Let's Talk" button.`,
+      },
+      { status: 200 }
+    );
+  }
+
   let body: { messages?: ChatMessage[] };
   try {
     body = await req.json();
