@@ -8,7 +8,7 @@ export type ChatMessage = { role: "user" | "assistant"; content: string };
 type ChatContextValue = {
   messages: ChatMessage[];
   loading: boolean;
-  send: (text: string) => Promise<void>;
+  send: (text: string) => Promise<string | null>;
 };
 
 const ChatContext = createContext<ChatContextValue | null>(null);
@@ -26,7 +26,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
   async function send(text: string) {
     const content = text.trim();
-    if (!content || loading) return;
+    if (!content || loading) return null;
     const next = [...messagesRef.current, { role: "user" as const, content }];
     setMessages(next);
     setLoading(true);
@@ -37,12 +37,13 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
         body: JSON.stringify({ messages: next }),
       });
       const data = await res.json();
-      setMessages((m) => [...m, { role: "assistant", content: data.reply ?? "Something went wrong." }]);
+      const reply: string = data.reply ?? "Something went wrong.";
+      setMessages((m) => [...m, { role: "assistant", content: reply }]);
+      return reply;
     } catch {
-      setMessages((m) => [
-        ...m,
-        { role: "assistant", content: `Network hiccup — try again, or email ${siteConfig.email}.` },
-      ]);
+      const reply = `Network hiccup — try again, or email ${siteConfig.email}.`;
+      setMessages((m) => [...m, { role: "assistant", content: reply }]);
+      return null;
     } finally {
       setLoading(false);
     }

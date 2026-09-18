@@ -9,6 +9,7 @@ import {
   education,
   hobbies,
   volunteering,
+  domainFocus,
 } from "@/config/siteData";
 
 export type GraphNode = {
@@ -62,14 +63,35 @@ export function buildGraphData(): { nodes: GraphNode[]; links: GraphLink[] } {
   // category) is what turns the graph from a clean spoke-tree into a dense,
   // organically clustered network — the same tag pulls in projects, experience
   // and skills at once, exactly like real knowledge overlaps.
+  const linkSeen = new Set<string>();
+  function addLink(a: string, b: string) {
+    const key = a < b ? `${a}|${b}` : `${b}|${a}`;
+    if (linkSeen.has(key)) return;
+    linkSeen.add(key);
+    links.push({ source: a, target: b });
+  }
+
   function linkTags(entityId: string, category: string, tags: string[]) {
-    tags.forEach((raw) => {
+    const ids = tags.map((raw) => {
       const id = tagId(raw);
       if (!tagNodes.has(id)) {
         tagNodes.set(id, { id, label: raw, group: "tag", category, val: 2 });
       }
-      links.push({ source: entityId, target: id });
+      addLink(entityId, id);
+      return id;
     });
+    // Co-occurrence edges: tags that appear together on the same real thing
+    // (e.g. a project's stack) get linked directly to each other too — this is
+    // what actually produces a dense, organic "hairball" instead of a clean
+    // spoke tree, using nothing but data that's already there. Capped to small
+    // lists so it doesn't blow up on the big LinkedIn skill groups.
+    if (ids.length > 1 && ids.length <= 8) {
+      for (let i = 0; i < ids.length; i++) {
+        for (let j = i + 1; j < ids.length; j++) {
+          addLink(ids[i], ids[j]);
+        }
+      }
+    }
   }
 
   experience.slice(0, 6).forEach((e, i) => {
@@ -95,6 +117,7 @@ export function buildGraphData(): { nodes: GraphNode[]; links: GraphLink[] } {
     nodes.push({ id, label: p.title.split(":")[0].slice(0, 40), group: "leaf", category: "Research", detail: p.venue, val: 3 });
     links.push({ source: "cat-Research", target: id });
   });
+  linkTags("cat-Research", "Research", domainFocus);
 
   capabilities.forEach((c, i) => {
     const id = `skill-${i}`;

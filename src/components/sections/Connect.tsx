@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Mail } from "lucide-react";
+import { ArrowUpRight, Mail, Sparkles } from "lucide-react";
 import { siteConfig } from "@/config/siteData";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GithubIcon, LinkedinIcon, YoutubeIcon } from "@/components/ui/BrandIcons";
+import { useChat } from "@/context/ChatContext";
 
 const socialLinks = [
   { label: "LinkedIn", href: siteConfig.socials.linkedin, Icon: LinkedinIcon },
@@ -24,6 +25,8 @@ const otherLinks = [
 
 export function Connect() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [draftError, setDraftError] = useState("");
+  const { send, loading } = useChat();
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -32,6 +35,19 @@ export function Connect() {
       `${form.message}\n\n— ${form.name}${form.email ? ` (${form.email})` : ""}`
     );
     window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
+  }
+
+  async function draftWithTime() {
+    setDraftError("");
+    const note = form.message.trim();
+    if (!note) {
+      setDraftError("Jot a quick note above first — what you're building or want to talk about — then let Time turn it into a proper email.");
+      return;
+    }
+    const reply = await send(
+      `Draft an email to Malik from me, the visitor. Here's what I want to say, in my own rough words: "${note}". Turn it into a clear, well-organized email in my voice.`
+    );
+    if (reply) setForm((f) => ({ ...f, message: reply }));
   }
 
   return (
@@ -75,13 +91,28 @@ export function Connect() {
             onChange={(e) => setForm({ ...form, message: e.target.value })}
             className="w-full rounded-lg border border-brand-border bg-brand-bg-soft px-4 py-2.5 text-sm text-brand-text placeholder:text-brand-muted focus:border-brand-accent focus:outline-none"
           />
-          <button
-            type="submit"
-            className="inline-flex items-center gap-2 rounded-md bg-brand-accent px-6 py-3 text-sm font-bold text-brand-bg hover:bg-brand-accent-hover"
-          >
-            <Mail className="h-4 w-4" />
-            Send via Email
-          </button>
+          {draftError && <p className="text-xs text-brand-accent">{draftError}</p>}
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="submit"
+              className="inline-flex items-center gap-2 rounded-md bg-brand-accent px-6 py-3 text-sm font-bold text-brand-bg hover:bg-brand-accent-hover"
+            >
+              <Mail className="h-4 w-4" />
+              Send via Email
+            </button>
+            <button
+              type="button"
+              onClick={draftWithTime}
+              disabled={loading}
+              className="inline-flex items-center gap-2 rounded-md border border-brand-accent px-4 py-3 text-sm font-bold text-brand-accent hover:bg-brand-accent hover:text-brand-bg disabled:opacity-50"
+            >
+              <Sparkles className="h-4 w-4" />
+              {loading ? "Drafting…" : `Draft with ${siteConfig.aiName}`}
+            </button>
+          </div>
+          <p className="text-[11px] text-brand-muted">
+            Jot a rough note above, then let {siteConfig.aiName} — grounded in Malik&apos;s work — turn it into a clear email before you send it.
+          </p>
         </motion.form>
 
         <div className="space-y-4">
